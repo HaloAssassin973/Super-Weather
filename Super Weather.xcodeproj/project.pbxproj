@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		45F16BB224AB4448005FCC4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16BB124AB4448005FCC4B /* AppDelegate.swift */; };
-		45F16BB424AB4448005FCC4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16BB324AB4448005FCC4B /* SceneDelegate.swift */; };
 		45F16BB624AB4448005FCC4B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16BB524AB4448005FCC4B /* ViewController.swift */; };
 		45F16BB924AB4448005FCC4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F16BB724AB4448005FCC4B /* Main.storyboard */; };
 		45F16BBC24AB4448005FCC4B /* Super_Weather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 45F16BBA24AB4448005FCC4B /* Super_Weather.xcdatamodeld */; };
@@ -19,7 +18,6 @@
 /* Begin PBXFileReference section */
 		45F16BAE24AB4447005FCC4B /* Super Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Super Weather.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F16BB124AB4448005FCC4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		45F16BB324AB4448005FCC4B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		45F16BB524AB4448005FCC4B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		45F16BB824AB4448005FCC4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		45F16BBB24AB4448005FCC4B /* Super_Weather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Super_Weather.xcdatamodel; sourceTree = "<group>"; };
@@ -59,7 +57,6 @@
 			isa = PBXGroup;
 			children = (
 				45F16BB124AB4448005FCC4B /* AppDelegate.swift */,
-				45F16BB324AB4448005FCC4B /* SceneDelegate.swift */,
 				45F16BB524AB4448005FCC4B /* ViewController.swift */,
 				45F16BB724AB4448005FCC4B /* Main.storyboard */,
 				45F16BBD24AB444B005FCC4B /* Assets.xcassets */,
@@ -144,7 +141,6 @@
 				45F16BBC24AB4448005FCC4B /* Super_Weather.xcdatamodeld in Sources */,
 				45F16BB624AB4448005FCC4B /* ViewController.swift in Sources */,
 				45F16BB224AB4448005FCC4B /* AppDelegate.swift in Sources */,
-				45F16BB424AB4448005FCC4B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +287,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U929TJA927;
 				INFOPLIST_FILE = "Super Weather/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,7 +295,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "abc.Super-Weather";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -309,6 +306,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U929TJA927;
 				INFOPLIST_FILE = "Super Weather/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,7 +314,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "abc.Super-Weather";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
