@@ -29,6 +29,7 @@
 		2D882ED924E166BB00A3E360 /* CitySearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D882ED824E166BB00A3E360 /* CitySearchRouter.swift */; };
 		2D882EDB24E1698700A3E360 /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D882EDA24E1698700A3E360 /* NetworkWorker.swift */; };
 		2D882EDD24E1699200A3E360 /* LocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D882EDC24E1699200A3E360 /* LocationWorker.swift */; };
+		2D882EE024E16C0E00A3E360 /* DataFetcherWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D882EDF24E16C0E00A3E360 /* DataFetcherWorker.swift */; };
 		45F16BB224AB4448005FCC4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16BB124AB4448005FCC4B /* AppDelegate.swift */; };
 		45F16BB624AB4448005FCC4B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16BB524AB4448005FCC4B /* ViewController.swift */; };
 		45F16BB924AB4448005FCC4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F16BB724AB4448005FCC4B /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 		2D882ED824E166BB00A3E360 /* CitySearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchRouter.swift; sourceTree = "<group>"; };
 		2D882EDA24E1698700A3E360 /* NetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		2D882EDC24E1699200A3E360 /* LocationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWorker.swift; sourceTree = "<group>"; };
+		2D882EDF24E16C0E00A3E360 /* DataFetcherWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcherWorker.swift; sourceTree = "<group>"; };
 		45F16BAE24AB4447005FCC4B /* Super Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Super Weather.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F16BB124AB4448005FCC4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45F16BB524AB4448005FCC4B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				2D882EDA24E1698700A3E360 /* NetworkWorker.swift */,
+				2D882EDF24E16C0E00A3E360 /* DataFetcherWorker.swift */,
 				2D882EDC24E1699200A3E360 /* LocationWorker.swift */,
 			);
 			path = Workers;
@@ -271,6 +274,7 @@
 				45F16BBC24AB4448005FCC4B /* Super_Weather.xcdatamodeld in Sources */,
 				2D882EA824E143C500A3E360 /* WeatherAssembly.swift in Sources */,
 				2D882EAA24E143E900A3E360 /* WeatherPresenter.swift in Sources */,
+				2D882EE024E16C0E00A3E360 /* DataFetcherWorker.swift in Sources */,
 				2D882ECB24E1664000A3E360 /* CitySearchInteractor.swift in Sources */,
 				2D882ED924E166BB00A3E360 /* CitySearchRouter.swift in Sources */,
 				2D882EC124E1633800A3E360 /* NavigationExtension.swift in Sources */,

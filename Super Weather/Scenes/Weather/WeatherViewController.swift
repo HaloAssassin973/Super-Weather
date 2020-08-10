@@ -45,7 +45,7 @@ final class WeatherViewController: UIViewController {
     private let descriptionLabel = UILabel()
     private let iconImageView = UIImageView()
     private let temperatureLabel = UILabel()
-    
+    private let fetcher = NetworkDataFetcher()
     var addedCities: [String] = []
 
     // MARK: - Life cycle
