@@ -1,16 +1,16 @@
 //
-//  WeatherAssembly.swift
+//  WeatherConfigurator.swift
 //  Super Weather
 //
-//  Created by Игорь Силаев on 10.06.2020.
+//  Created by Игорь Силаев on 10.08.2020.
 //  Copyright © 2020 Игорь Силаев. All rights reserved.
 //
 
 import UIKit
 
-final class WeatherAssembly {
+final class WeatherConfigurator {
 
-    static func assembly() -> UIViewController {
+    static func configure() -> UIViewController {
         
         let view = WeatherViewController()
         let presenter = WeatherPresenter()

@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let weatherAssembly = WeatherAssembly.assembly()
+        let weatherAssembly = WeatherConfigurator.configure()
         window?.rootViewController = UINavigationController(rootViewController: weatherAssembly)
         window?.makeKeyAndVisible()
         

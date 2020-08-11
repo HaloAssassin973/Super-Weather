@@ -53,14 +53,6 @@ final class CitySearchViewController: UIViewController {
         configurateTableView()
         setTableViewConstraints()
         configurateSearchController()
-        
-        
-        navigationItem.leftBarButtonItem?.accessibilityIdentifier = Identifiers.cancelButton
-        if #available(iOS 13.0, *) {
-            searchController.searchBar.searchTextField.accessibilityIdentifier = Identifiers.searchTextField
-        } else {
-            // Fallback on earlier versions
-        }
     }
     
     private func filterContentForSearchText(_ searchText: String) {

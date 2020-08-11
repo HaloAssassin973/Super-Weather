@@ -45,7 +45,8 @@ final class WeatherViewController: UIViewController {
     private let descriptionLabel = UILabel()
     private let iconImageView = UIImageView()
     private let temperatureLabel = UILabel()
-    private let fetcher = NetworkDataFetcher()
+    
+    
     var addedCities: [String] = []
 
     // MARK: - Life cycle
@@ -71,7 +72,7 @@ final class WeatherViewController: UIViewController {
 extension WeatherViewController: WeatherViewInput {
     
     func updateView() {
-        print("View updated")
+        
     }
 }
 
@@ -170,7 +171,11 @@ extension WeatherViewController {
                 stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ])
         } else {
-            // Fallback on earlier versions
+            NSLayoutConstraint.activate([
+                stackView.topAnchor.constraint(equalTo: view.topAnchor),
+                stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
         }
     }
     
