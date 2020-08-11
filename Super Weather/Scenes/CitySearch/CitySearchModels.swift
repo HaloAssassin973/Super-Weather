@@ -1,5 +1,5 @@
 //
-//  WeatherModels.swift
+//  CitySearchModels.swift
 //  Super Weather
 //
 //  Created by Игорь Силаев on 11.08.2020.
@@ -9,6 +9,6 @@
 //
 //  Type "usecase" for some magic!
 
-struct WeatherScene {
+struct CitySearchScene {
     
 }

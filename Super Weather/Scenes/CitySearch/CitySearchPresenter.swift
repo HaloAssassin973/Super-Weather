@@ -1,5 +1,5 @@
 //
-//  WeatherPresenter.swift
+//  CitySearchPresenter.swift
 //  Super Weather
 //
 //  Created by Игорь Силаев on 11.08.2020.
@@ -7,17 +7,17 @@
 //
 
 
-protocol WeatherPresenterInput {
+protocol CitySearchPresenterInput {
     
 }
 
-protocol WeatherPresenterOutput: class {
+protocol CitySearchPresenterOutput: class {
     
 }
 
-class WeatherPresenter: WeatherPresenterInput {
+class CitySearchPresenter: CitySearchPresenterInput {
     
-    weak var output: WeatherPresenterOutput?
+    weak var output: CitySearchPresenterOutput?
     
     // MARK: Presentation logic
     

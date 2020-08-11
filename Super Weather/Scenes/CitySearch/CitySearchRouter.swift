@@ -1,5 +1,5 @@
 //
-//  WeatherRouter.swift
+//  CitySearchRouter.swift
 //  Super Weather
 //
 //  Created by Игорь Силаев on 11.08.2020.
@@ -9,25 +9,25 @@
 
 import UIKit
 
-protocol WeatherRouterInput {
+protocol CitySearchRouterInput {
     
 }
 
-protocol WeatherRouterDataSource: class {
+protocol CitySearchRouterDataSource: class {
     
 }
 
-protocol WeatherRouterDataDestination: class {
+protocol CitySearchRouterDataDestination: class {
     
 }
 
-class WeatherRouter: WeatherRouterInput {
+class CitySearchRouter: CitySearchRouterInput {
     
-    weak var viewController: WeatherViewController!
-    weak private var dataSource: WeatherRouterDataSource!
-    weak var dataDestination: WeatherRouterDataDestination!
+    weak var viewController: CitySearchViewController!
+    weak private var dataSource: CitySearchRouterDataSource!
+    weak var dataDestination: CitySearchRouterDataDestination!
     
-    init(viewController: WeatherViewController, dataSource: WeatherRouterDataSource, dataDestination: WeatherRouterDataDestination) {
+    init(viewController: CitySearchViewController, dataSource: CitySearchRouterDataSource, dataDestination: CitySearchRouterDataDestination) {
         self.viewController = viewController
         self.dataSource = dataSource
         self.dataDestination = dataDestination
