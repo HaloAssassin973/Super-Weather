@@ -11,7 +11,7 @@ protocol WeatherPresenterInput {
     
 }
 
-protocol WeatherPresenterOutput: class {
+protocol WeatherPresenterOutput: NSObject {
     
 }
 

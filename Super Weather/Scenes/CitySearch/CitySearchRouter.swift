@@ -13,11 +13,11 @@ protocol CitySearchRouterInput {
     
 }
 
-protocol CitySearchRouterDataSource: class {
+protocol CitySearchRouterDataSource: NSObject {
     
 }
 
-protocol CitySearchRouterDataDestination: class {
+protocol CitySearchRouterDataDestination: NSObject {
     
 }
 

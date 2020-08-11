@@ -11,7 +11,7 @@ protocol CitySearchPresenterInput {
     
 }
 
-protocol CitySearchPresenterOutput: class {
+protocol CitySearchPresenterOutput: NSObject {
     
 }
 

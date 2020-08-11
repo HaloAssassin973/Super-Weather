@@ -13,11 +13,11 @@ protocol WeatherRouterInput {
     
 }
 
-protocol WeatherRouterDataSource: class {
+protocol WeatherRouterDataSource: NSObject {
     
 }
 
-protocol WeatherRouterDataDestination: class {
+protocol WeatherRouterDataDestination: NSObject {
     
 }
 
