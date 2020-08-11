@@ -99,14 +99,14 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
         
         let city = addedCities[indexPath.row]
         
-        dataFetcher.fetchWeather(searchTerm: city){ (data)  in
-            if let data = data {
-                self.cityLabel.text = data.name
-                self.temperatureLabel.text = String(format: "%.0f", data.main.tempCelsius) + "°"
-                self.descriptionLabel.text = data.weather.first?.weatherDescription
+//        dataFetcher.fetchWeather(searchTerm: city){ (data)  in
+//            if let data = data {
+//                self.cityLabel.text = data.name
+//                self.temperatureLabel.text = String(format: "%.0f", data.main.tempCelsius) + "°"
+//                self.descriptionLabel.text = data.weather.first?.weatherDescription
 //                self.iconImageView.addImage(with: data.weather.first!.icon)
-            }
-        }
+//            }
+//        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
