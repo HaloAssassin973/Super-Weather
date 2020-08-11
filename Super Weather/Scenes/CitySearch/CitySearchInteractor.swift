@@ -27,7 +27,7 @@ class CitySearchInteractor: CitySearchInteractorInput, CitySearchDataSource, Cit
     
     var output: CitySearchInteractorOutput?
     
-    // MARK: Business logic
+    // MARK: - Business logic
     
 
 }

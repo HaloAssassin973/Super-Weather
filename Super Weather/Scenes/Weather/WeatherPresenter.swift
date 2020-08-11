@@ -19,6 +19,6 @@ class WeatherPresenter: WeatherPresenterInput {
     
     weak var output: WeatherPresenterOutput?
     
-    // MARK: Presentation logic
+    // MARK: - Presentation logic
     
 }

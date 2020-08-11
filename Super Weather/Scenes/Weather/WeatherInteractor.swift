@@ -27,7 +27,7 @@ class WeatherInteractor: WeatherInteractorInput, WeatherDataSource, WeatherDataD
     
     var output: WeatherInteractorOutput?
     
-    // MARK: Business logic
+    // MARK: - Business logic
     
 
 }

@@ -9,7 +9,7 @@
 
 import UIKit
 
-// MARK: Connect View, Interactor, and Presenter
+// MARK: - Connect View, Interactor, and Presenter
 
 extension WeatherInteractor: WeatherViewControllerOutput, WeatherRouterDataSource, WeatherRouterDataDestination {
 }
@@ -18,13 +18,13 @@ extension WeatherPresenter: WeatherInteractorOutput {
 }
 
 final class WeatherConfigurator {
-    // MARK: Object lifecycle
+    // MARK: - Object lifecycle
     
     static let sharedInstance = WeatherConfigurator()
     
     private init() {}
     
-    // MARK: Configuration
+    // MARK: - Configuration
     
     func configure(viewController: WeatherViewController) {
         

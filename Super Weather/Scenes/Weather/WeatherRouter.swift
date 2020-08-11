@@ -33,9 +33,9 @@ class WeatherRouter: WeatherRouterInput {
         self.dataDestination = dataDestination
     }
     
-    // MARK: Navigation
+    // MARK: - Navigation
     
-    // MARK: Communication
+    // MARK: - Communication
     
     func passDataToNextScene(for segue: UIStoryboardSegue) {
         // NOTE: Teach the router which scenes it can communicate with

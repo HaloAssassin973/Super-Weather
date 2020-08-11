@@ -19,6 +19,6 @@ class CitySearchPresenter: CitySearchPresenterInput {
     
     weak var output: CitySearchPresenterOutput?
     
-    // MARK: Presentation logic
+    // MARK: - Presentation logic
     
 }

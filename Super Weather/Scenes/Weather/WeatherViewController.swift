@@ -43,8 +43,7 @@ class WeatherViewController: UIViewController, WeatherViewControllerInput {
     
     var addedCities: [String] = []
     
-    private let dataFetcher = NetworkDataFetcher()
-    //    private var locationManager: LocationWorker!
+
     
     // MARK: - Object lifecycle
     

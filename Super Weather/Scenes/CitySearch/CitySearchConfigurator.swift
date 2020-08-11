@@ -9,7 +9,7 @@
 
 import UIKit
 
-// MARK: Connect View, Interactor, and Presenter
+// MARK: - Connect View, Interactor, and Presenter
 
 extension CitySearchInteractor: CitySearchViewControllerOutput, CitySearchRouterDataSource, CitySearchRouterDataDestination {
 }
@@ -18,13 +18,13 @@ extension CitySearchPresenter: CitySearchInteractorOutput {
 }
 
 class CitySearchConfigurator {
-    // MARK: Object lifecycle
+    // MARK: - Object lifecycle
     
     static let sharedInstance = CitySearchConfigurator()
     
     private init() {}
     
-    // MARK: Configuration
+    // MARK: - Configuration
     
     func configure(viewController: CitySearchViewController) {
         

@@ -10,5 +10,5 @@
 //  Type "usecase" for some magic!
 
 struct WeatherScene {
-    
+
 }
