@@ -9,7 +9,7 @@
 import CoreLocation
 
 protocol WeatherInteractorInput {
-    func fetchWeather(_ request: WeatherScene.FetchWeather.Request)
+
 }
 
 protocol WeatherInteractorOutput {
@@ -33,14 +33,17 @@ class WeatherInteractor: WeatherInteractorInput, WeatherDataSource, WeatherDataD
     
     // MARK: - Business logic
     
+
+}
+
+extension WeatherInteractor:  WeatherViewControllerOutput {
     func fetchWeather(_ request: WeatherScene.FetchWeather.Request) {
         dataFetcher.fetchWeather(searchTerm: request.city) { data in
             self.output?.presentWeather(WeatherScene.FetchWeather.Response(weather: data))
         }
     }
-    
-    
-
-    
 }
 
+extension WeatherInteractor: WeatherRouterDataSource, WeatherRouterDataDestination {
+    
+}

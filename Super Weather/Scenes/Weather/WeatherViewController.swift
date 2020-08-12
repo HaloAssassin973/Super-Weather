@@ -11,7 +11,7 @@ import UIKit
 import CoreLocation
 
 protocol WeatherViewControllerInput {
-    func printWeather(_ viewModel: WeatherScene.FetchWeather.ViewModel)
+
 }
 
 protocol WeatherViewControllerOutput {
@@ -59,7 +59,6 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         configurateView()
         loadWeatherInfromation()
-        print(output)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,19 +77,12 @@ class WeatherViewController: UIViewController {
     
 }
 
-extension WeatherViewController: WeatherViewControllerInput {
+extension WeatherViewController: WeatherPresenterOutput {
     func printWeather(_ viewModel: WeatherScene.FetchWeather.ViewModel) {
         print(viewModel)
     }
     
     
-}
-
-//This should be on configurator but for some reason storyboard doesn't detect ViewController's name if placed there
-extension WeatherViewController: WeatherPresenterOutput {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        router?.passDataToNextScene(for: segue)
-    }
 }
 
 //MARK: - TableView Protocols Implementation

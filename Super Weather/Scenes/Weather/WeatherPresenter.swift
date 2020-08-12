@@ -8,7 +8,7 @@
 
 
 protocol WeatherPresenterInput {
-    func presentWeather(_ response: WeatherScene.FetchWeather.Response)
+
 }
 
 protocol WeatherPresenterOutput: AnyObject {
@@ -20,8 +20,14 @@ class WeatherPresenter: WeatherPresenterInput {
     weak var output: WeatherPresenterOutput?
     
     // MARK: - Presentation logic
+
+}
+
+extension WeatherPresenter: WeatherInteractorOutput {
+    
     func presentWeather(_ response: WeatherScene.FetchWeather.Response) {
         let viewModel = WeatherScene.FetchWeather.ViewModel(weather: response.weather)
         output?.printWeather(viewModel)
     }
 }
+
