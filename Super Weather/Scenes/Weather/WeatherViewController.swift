@@ -11,14 +11,14 @@ import UIKit
 import CoreLocation
 
 protocol WeatherViewControllerInput {
-    
+    func printWeather(_ viewModel: WeatherScene.FetchWeather.ViewModel)
 }
 
 protocol WeatherViewControllerOutput {
-    
+    func fetchWeather(_ viewModel: WeatherScene.FetchWeather.Request)
 }
 
-class WeatherViewController: UIViewController, WeatherViewControllerInput {
+class WeatherViewController: UIViewController {
     
     //MARK: - Constants
     private enum Constants: String {
@@ -43,20 +43,23 @@ class WeatherViewController: UIViewController, WeatherViewControllerInput {
     
     var addedCities: [String] = []
     
-
+    
     
     // MARK: - Object lifecycle
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func loadView() {
+        super.loadView()
         WeatherConfigurator.sharedInstance.configure(viewController: self)
     }
+    
     
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configurateView()
+        loadWeatherInfromation()
+        print(output)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,9 +69,20 @@ class WeatherViewController: UIViewController, WeatherViewControllerInput {
     }
     
     // MARK: - Requests
-    
+    private func loadWeatherInfromation() {
+        let request = WeatherScene.FetchWeather.Request(city: "Moscow")
+        output?.fetchWeather(request)
+    }
     
     // MARK: - Display logic
+    
+}
+
+extension WeatherViewController: WeatherViewControllerInput {
+    func printWeather(_ viewModel: WeatherScene.FetchWeather.ViewModel) {
+        print(viewModel)
+    }
+    
     
 }
 
@@ -99,14 +113,14 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
         
         let city = addedCities[indexPath.row]
         
-//        dataFetcher.fetchWeather(searchTerm: city){ (data)  in
-//            if let data = data {
-//                self.cityLabel.text = data.name
-//                self.temperatureLabel.text = String(format: "%.0f", data.main.tempCelsius) + "°"
-//                self.descriptionLabel.text = data.weather.first?.weatherDescription
-//                self.iconImageView.addImage(with: data.weather.first!.icon)
-//            }
-//        }
+        //        dataFetcher.fetchWeather(searchTerm: city){ (data)  in
+        //            if let data = data {
+        //                self.cityLabel.text = data.name
+        //                self.temperatureLabel.text = String(format: "%.0f", data.main.tempCelsius) + "°"
+        //                self.descriptionLabel.text = data.weather.first?.weatherDescription
+        //                self.iconImageView.addImage(with: data.weather.first!.icon)
+        //            }
+        //        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

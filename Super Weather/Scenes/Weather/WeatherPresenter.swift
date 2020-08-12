@@ -8,11 +8,11 @@
 
 
 protocol WeatherPresenterInput {
-    
+    func presentWeather(_ response: WeatherScene.FetchWeather.Response)
 }
 
-protocol WeatherPresenterOutput: NSObject {
-    
+protocol WeatherPresenterOutput: AnyObject {
+    func printWeather(_ viewModel: WeatherScene.FetchWeather.ViewModel)
 }
 
 class WeatherPresenter: WeatherPresenterInput {
@@ -20,5 +20,8 @@ class WeatherPresenter: WeatherPresenterInput {
     weak var output: WeatherPresenterOutput?
     
     // MARK: - Presentation logic
-    
+    func presentWeather(_ response: WeatherScene.FetchWeather.Response) {
+        let viewModel = WeatherScene.FetchWeather.ViewModel(weather: response.weather)
+        output?.printWeather(viewModel)
+    }
 }

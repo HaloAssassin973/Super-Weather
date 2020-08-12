@@ -12,6 +12,7 @@ import UIKit
 // MARK: - Connect View, Interactor, and Presenter
 
 extension WeatherInteractor: WeatherViewControllerOutput, WeatherRouterDataSource, WeatherRouterDataDestination {
+    
 }
 
 extension WeatherPresenter: WeatherInteractorOutput {
