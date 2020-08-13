@@ -15,7 +15,8 @@ protocol WeatherViewControllerInput {
 }
 
 protocol WeatherViewControllerOutput {
-    func fetchWeather(_ viewModel: WeatherScene.FetchWeather.Request)
+    func fetchWeather(_ request: WeatherScene.FetchWeather.Request)
+    func fetchWeatherWithLocation()
 }
 
 class WeatherViewController: UIViewController {
@@ -43,7 +44,7 @@ class WeatherViewController: UIViewController {
     
     var addedCities: [String] = []
     
-    
+    private var locationManager: LocationWorker!
     
     // MARK: - Object lifecycle
     
@@ -58,7 +59,7 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configurateView()
-        loadWeatherInfromation()
+        locationManager = LocationWorker(client: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,21 +69,41 @@ class WeatherViewController: UIViewController {
     }
     
     // MARK: - Requests
-    private func loadWeatherInfromation() {
-        let request = WeatherScene.FetchWeather.Request(city: "Moscow")
-        output?.fetchWeather(request)
-    }
-    
-    // MARK: - Display logic
     
 }
 
+// MARK: - Display logic
 extension WeatherViewController: WeatherPresenterOutput {
     func printWeather(_ viewModel: WeatherScene.FetchWeather.ViewModel) {
-        print(viewModel)
+        if let weather = viewModel.weather {
+            self.cityLabel.text = weather.name
+            self.temperatureLabel.text = String(format: "%.0f", weather.main.tempCelsius) + "°"
+            self.descriptionLabel.text = weather.weather.first?.weatherDescription
+            self.iconImageView.addImage(with: weather.weather.first!.icon)
+        }
+    } 
+}
+
+// MARK: - CoreLocation Delegate
+extension WeatherViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+
+        switch status {
+        case .notDetermined:
+            print("notDetermined")
+        case .authorizedWhenInUse:
+            print("authorizedWhenInUse")
+            output?.fetchWeatherWithLocation()
+        case .authorizedAlways:
+            print("authorizedAlways")
+        case .restricted:
+            print("restricted")           // TODO: handler
+        case .denied:
+            print("denied")               // TODO: handler
+        @unknown default:
+            print("New Status")
+        }
     }
-    
-    
 }
 
 //MARK: - TableView Protocols Implementation
@@ -102,17 +123,6 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let city = addedCities[indexPath.row]
-        
-        //        dataFetcher.fetchWeather(searchTerm: city){ (data)  in
-        //            if let data = data {
-        //                self.cityLabel.text = data.name
-        //                self.temperatureLabel.text = String(format: "%.0f", data.main.tempCelsius) + "°"
-        //                self.descriptionLabel.text = data.weather.first?.weatherDescription
-        //                self.iconImageView.addImage(with: data.weather.first!.icon)
-        //            }
-        //        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
