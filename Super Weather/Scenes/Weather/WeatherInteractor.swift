@@ -36,7 +36,7 @@ class WeatherInteractor: NSObject, WeatherInteractorInput, WeatherDataSource, We
     
 }
 
-extension WeatherInteractor:  WeatherViewControllerOutput {
+extension WeatherInteractor: WeatherViewControllerOutput {
     
     func fetchWeather(_ request: WeatherScene.FetchWeather.Request) {
         dataFetcher = NetworkDataFetcher()

@@ -14,7 +14,7 @@ protocol CitySearchViewControllerInput {
 }
 
 protocol CitySearchViewControllerOutput {
-    
+    func fetchWeather(_ request: CitySearchScene.FetchWeather.Request)
 }
 
 class CitySearchViewController: UIViewController, CitySearchViewControllerInput {
@@ -42,14 +42,12 @@ class CitySearchViewController: UIViewController, CitySearchViewControllerInput 
         case cellId
         case title = "Cities List"
         case placeholder = "Search City"
-        case fileName = "Cities"
-        case fileType = "txt"
     }
     
     // MARK: - Object lifecycle
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func loadView() {
+        super.loadView()
         CitySearchConfigurator.sharedInstance.configure(viewController: self)
     }
     
@@ -67,16 +65,21 @@ class CitySearchViewController: UIViewController, CitySearchViewControllerInput 
     }
     
     // MARK: - Requests
-    
-    
-    // MARK: - Display logic
-    
+        
 }
 
-//This should be on configurator but for some reason storyboard doesn't detect ViewController's name if placed there
+extension CitySearchViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let city = searchBar.text else { return }
+        let request = CitySearchScene.FetchWeather.Request(city: city)
+        output?.fetchWeather(request)
+    }
+}
+
+// MARK: - Display logic
 extension CitySearchViewController: CitySearchPresenterOutput {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        router?.passDataToNextScene(for: segue)
+    func printWeather(_ viewModel: CitySearchScene.FetchWeather.ViewModel) {
+        print(viewModel.weather)
     }
 }
 
@@ -131,6 +134,7 @@ extension CitySearchViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension CitySearchViewController {
     private func configurateSearchController() {
+        searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.barStyle = .black
         searchController.searchBar.placeholder = Constants.placeholder.rawValue

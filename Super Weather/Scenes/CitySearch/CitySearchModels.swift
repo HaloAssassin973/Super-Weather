@@ -10,5 +10,18 @@
 //  Type "usecase" for some magic!
 
 struct CitySearchScene {
-    
+    struct FetchWeather {
+        
+        struct Request {
+            let city: String
+        }
+        
+        struct Response {
+            let weather: WeatherAPI?
+        }
+        
+        struct ViewModel {
+            let weather: WeatherAPI?
+        }
+    }
 }
