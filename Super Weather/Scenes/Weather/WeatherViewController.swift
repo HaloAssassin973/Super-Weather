@@ -59,7 +59,6 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         configurateView()
         loadWeatherInfromation()
-        print(output)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,13 +73,11 @@ class WeatherViewController: UIViewController {
         output?.fetchWeather(request)
     }
     
-    // MARK: - Display logic
-    
 }
-
+    // MARK: - Display logic
 extension WeatherViewController: WeatherViewControllerInput {
     func printWeather(_ viewModel: WeatherScene.FetchWeather.ViewModel) {
-        print(viewModel)
+        print(viewModel.weather)
     }
     
     
