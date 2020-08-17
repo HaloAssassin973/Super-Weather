@@ -9,14 +9,6 @@
 
 import UIKit
 
-// MARK: - Connect View, Interactor, and Presenter
-
-extension CitySearchInteractor: CitySearchViewControllerOutput, CitySearchRouterDataSource, CitySearchRouterDataDestination {
-}
-
-extension CitySearchPresenter: CitySearchInteractorOutput {
-}
-
 class CitySearchConfigurator {
     // MARK: - Object lifecycle
     

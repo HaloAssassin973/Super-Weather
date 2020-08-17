@@ -9,7 +9,7 @@
 import CoreLocation
 
 protocol WeatherInteractorInput {
-    func fetchWeather(_ request: WeatherScene.FetchWeather.Request)
+    
 }
 
 protocol WeatherInteractorOutput {
@@ -24,23 +24,43 @@ protocol WeatherDataDestination {
     
 }
 
-class WeatherInteractor: WeatherInteractorInput, WeatherDataSource, WeatherDataDestination {
+class WeatherInteractor: NSObject, WeatherInteractorInput, WeatherDataSource, WeatherDataDestination, CLLocationManagerDelegate {
     
     //MARK: - Properties
+    
     var output: WeatherInteractorOutput?
-    private let dataFetcher = NetworkDataFetcher()
-    //    private var locationManager: LocationWorker!
+    private var dataFetcher: DataFetcherWorker?
+    private var locationManager: LocationWorker!
     
     // MARK: - Business logic
     
+}
+
+extension WeatherInteractor: WeatherViewControllerOutput {
+    
     func fetchWeather(_ request: WeatherScene.FetchWeather.Request) {
-        dataFetcher.fetchWeather(searchTerm: request.city) { data in
+        dataFetcher = NetworkDataFetcher()
+        dataFetcher?.fetchWeather(searchTerm: request.city) { data in
             self.output?.presentWeather(WeatherScene.FetchWeather.Response(weather: data))
         }
     }
     
-    
-
-    
+    func fetchWeatherWithLocation() {
+        locationManager = LocationWorker(client: self)
+        dataFetcher = NetworkDataFetcher()
+        guard let location = locationManager.exposedLocation else {
+            print("Location is nil")
+            return
+        }
+        locationManager.getPlace(for: location) { (placemark) in
+            guard let city = placemark?.locality?.applyingTransform(.toLatin, reverse: false) else { return }
+            self.dataFetcher?.fetchWeather(searchTerm: city) { weather in
+                self.output?.presentWeather(WeatherScene.FetchWeather.Response(weather: weather))
+            }
+        }
+    }
 }
 
+extension WeatherInteractor: WeatherRouterDataSource, WeatherRouterDataDestination {
+    
+}

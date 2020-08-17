@@ -12,7 +12,7 @@ protocol CitySearchPresenterInput {
 }
 
 protocol CitySearchPresenterOutput: AnyObject {
-    
+    func printWeather(_ viewModel: CitySearchScene.FetchWeather.ViewModel)
 }
 
 class CitySearchPresenter: CitySearchPresenterInput {
@@ -21,4 +21,12 @@ class CitySearchPresenter: CitySearchPresenterInput {
     
     // MARK: - Presentation logic
     
+}
+
+extension CitySearchPresenter: CitySearchInteractorOutput {
+    
+    func presentWeather(_ response: CitySearchScene.FetchWeather.Response) {
+        let viewModel = CitySearchScene.FetchWeather.ViewModel(weather: response.weather)
+        output?.printWeather(viewModel)
+    }
 }
