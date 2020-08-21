@@ -6,11 +6,11 @@
 //  Copyright (c) 2020 Игорь Силаев. All rights reserved.
 //
 
-//
-//  Type "usecase" for some magic!
+import UIKit
 
-struct WeatherScene {
-    struct FetchWeather {
+struct WeatherModels {
+    
+    struct Fetch {
         
         struct Request {
             let city: String
@@ -18,10 +18,21 @@ struct WeatherScene {
         
         struct Response {
             let weather: WeatherAPI?
+            let errorMessage: String?
         }
+    }
+    
+    struct Show {
         
         struct ViewModel {
-            let weather: WeatherAPI?
+            let cityName: String
+            let temperature: String
+            let description: String?
+            let image: UIImage?
+        }
+        
+        struct ErrorModel {
+            let message: String
         }
     }
 }

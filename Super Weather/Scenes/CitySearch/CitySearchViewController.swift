@@ -119,13 +119,13 @@ extension CitySearchViewController: UITableViewDataSource, UITableViewDelegate {
             city = cities[indexPath.row]
         }
         
-        dismiss(animated: true, completion: {
-            self.navigationController?.popViewController(animated: true)
-            let weatherVC = self.navigationController?.viewControllers.first as! WeatherViewController
-            if !weatherVC.addedCities.contains(city) {
-                weatherVC.addedCities.append(city)
-            }
-        })
+//        dismiss(animated: true, completion: {
+//            self.navigationController?.popViewController(animated: true)
+//            let weatherVC = self.navigationController?.viewControllers.first as! WeatherModuleViewController
+//            if !weatherVC.addedCities.contains(city) {
+//                weatherVC.addedCities.append(city)
+//            }
+//        })
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

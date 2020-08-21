@@ -1,5 +1,5 @@
 //
-//  WeatherViewController.swift
+//  WeatherModuleViewController.swift
 //  Super Weather
 //
 //  Created by Игорь Силаев on 11.08.2020.
@@ -8,20 +8,27 @@
 
 
 import UIKit
-import CoreLocation
 
-protocol WeatherViewControllerInput {
-
+protocol WeatherModuleDisplayLogic: class {
+    
+    ///описание
+    func displayActivityIndicator(isActive: Bool)
+    
+    ///описание
+    func displayError(_ errorModel: WeatherModels.Show.ErrorModel)
+    
+    ///описание
+    func displayWeather(_ viewModel: WeatherModels.Show.ViewModel)
+    
+    ///описание
+    func displayCitySearch()
 }
 
-protocol WeatherViewControllerOutput {
-    func fetchWeather(_ request: WeatherScene.FetchWeather.Request)
-    func fetchWeatherWithLocation()
-}
 
-class WeatherViewController: UIViewController {
+final class WeatherModuleViewController: UIViewController {
     
     //MARK: - Constants
+    
     private enum Constants: String {
         case cellId
         case title = "Weather"
@@ -29,9 +36,13 @@ class WeatherViewController: UIViewController {
     }
     
     
-    //MARK: - Properties
-    var output: WeatherViewControllerOutput?
-    var router: WeatherRouter?
+    //MARK: - Public properties
+    
+    var interactor: WeatherModuleBusinessLogic!
+    var router: WeatherModuleRoutingLogic!
+    
+    
+    //MARK: - Private properties
     
     private let topStackView = UIStackView()
     private let bottomStackView = UIStackView()
@@ -42,16 +53,7 @@ class WeatherViewController: UIViewController {
     private let iconImageView = UIImageView()
     private let temperatureLabel = UILabel()
     
-    var addedCities: [String] = []
-    
-    private var locationManager: LocationWorker!
-    
-    // MARK: - Object lifecycle
-    
-    override func loadView() {
-        super.loadView()
-        WeatherConfigurator.sharedInstance.configure(viewController: self)
-    }
+    private var addedCities: [String] = []
     
     
     // MARK: - View lifecycle
@@ -59,59 +61,48 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configurateView()
-        locationManager = LocationWorker(client: self)
+        interactor.handleViewReady()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         tableView.reloadData()
     }
+}
+
+
+// MARK: - Weather Module Display Logic
+
+extension WeatherModuleViewController: WeatherModuleDisplayLogic {
     
-    // MARK: - Requests
-    private func loadWeatherInfromation() {
-        let request = WeatherScene.FetchWeather.Request(city: "Moscow")
-        output?.fetchWeather(request)
+    func displayActivityIndicator(isActive: Bool) {
+        // display activity indicator
     }
     
-}
-
-// MARK: - Display logic
-extension WeatherViewController: WeatherPresenterOutput {
-    func printWeather(_ viewModel: WeatherScene.FetchWeather.ViewModel) {
-        if let weather = viewModel.weather {
-            self.cityLabel.text = weather.name
-            self.temperatureLabel.text = String(format: "%.0f", weather.main.tempCelsius) + "°"
-            self.descriptionLabel.text = weather.weather.first?.weatherDescription
-            self.iconImageView.addImage(with: weather.weather.first!.icon)
-        }
-    } 
-}
-
-// MARK: - CoreLocation Delegate
-extension WeatherViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-
-        switch status {
-        case .notDetermined:
-            print("notDetermined")
-        case .authorizedWhenInUse:
-            print("authorizedWhenInUse")
-            output?.fetchWeatherWithLocation()
-        case .authorizedAlways:
-            print("authorizedAlways")
-        case .restricted:
-            print("restricted")           // TODO: handler
-        case .denied:
-            print("denied")               // TODO: handler
-        @unknown default:
-            print("New Status")
+    func displayError(_ errorModel: WeatherModels.Show.ErrorModel) {
+        router.showErrorAlert(message: errorModel.message) { [weak self] success in
+//            self?.interactor....
         }
     }
+    
+    func displayWeather(_ viewModel: WeatherModels.Show.ViewModel) {
+        cityLabel.text = viewModel.cityName
+        temperatureLabel.text = viewModel.temperature
+        descriptionLabel.text = viewModel.description
+//        if let iconID = viewModel.iconID {
+//            iconImageView.addImage(with: iconID)
+//        }
+    }
+    
+    func displayCitySearch() {
+        router.routeToCitySearch()
+    }
 }
+
 
 //MARK: - TableView Protocols Implementation
-extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
+
+extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         addedCities.count
     }
@@ -129,6 +120,7 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -142,9 +134,11 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+
 //MARK: - Configurations & Constraints
-extension WeatherViewController {
-    private func configurateView() {
+
+private extension WeatherModuleViewController {
+    func configurateView() {
         
         view.assignbackground()
         
@@ -159,7 +153,7 @@ extension WeatherViewController {
         setTableViewConstraints()
     }
     
-    private func configurateNavigation() {
+    func configurateNavigation() {
         navigationController?.configurate()
         navigationController?.navigationBar.tintColor = .white
         
@@ -170,12 +164,12 @@ extension WeatherViewController {
         navigationItem.rightBarButtonItem?.accessibilityIdentifier = "Add button"
     }
     
-    @objc private func addTapped() {
-        self.navigationController?.pushViewController(CitySearchViewController(),
-                                                      animated: true)
+    @objc func addTapped() {
+        navigationController?.pushViewController(CitySearchViewController(),
+                                                 animated: true)
     }
     
-    private func configurateTopStackView() {
+    func configurateTopStackView() {
         cityLabel.configurateCityLabel()
         descriptionLabel.configurateDescriptionLabel()
         topStackView.configuration()
@@ -183,7 +177,7 @@ extension WeatherViewController {
         topStackView.addArrangedSubview(descriptionLabel)
     }
     
-    private func configurateBottomStackView() {
+    func configurateBottomStackView() {
         temperatureLabel.configurateTemperatureLabel()
         //        iconImageView.configuration()
         bottomStackView.configuration()
@@ -191,7 +185,7 @@ extension WeatherViewController {
         bottomStackView.addArrangedSubview(temperatureLabel)
     }
     
-    private func configurateStackView() {
+    func configurateStackView() {
         configurateTopStackView()
         configurateBottomStackView()
         stackView.configuration()
@@ -199,7 +193,7 @@ extension WeatherViewController {
         stackView.addArrangedSubview(bottomStackView)
     }
     
-    private func setStackViewConstraints() {
+    func setStackViewConstraints() {
         
         if #available(iOS 11.0, *) {
             NSLayoutConstraint.activate([
@@ -216,12 +210,12 @@ extension WeatherViewController {
         }
     }
     
-    private func configurateTableView() {
+    func configurateTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellId.rawValue)
         tableView.confugurate(in: self)
     }
     
-    private func setTableViewConstraints() {
+    func setTableViewConstraints() {
         let height: CGFloat = view.frame.height
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
