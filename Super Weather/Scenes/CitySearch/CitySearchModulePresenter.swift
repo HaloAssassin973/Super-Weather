@@ -1,5 +1,5 @@
 //
-//  CitySearchPresenter.swift
+//  CitySearchModulePresenter.swift
 //  Super Weather
 //
 //  Created by Игорь Силаев on 11.08.2020.

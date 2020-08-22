@@ -14,7 +14,7 @@ protocol CitySearchModuleRoutingLogic: class {
     ///описание
     func showErrorAlert(message: String, completion: ((Bool) -> Void)?)
     
-    ///описание
+    ///Переход к экрану с отображением погоды
     func routeToWeatherModule()
 }
 
@@ -35,6 +35,12 @@ extension CitySearchModuleRouter: CitySearchModuleRoutingLogic {
     }
     
     func routeToWeatherModule() {
-        //do routeToWeather
+        viewController?.dismiss(animated: true, completion: {
+            self.viewController?.navigationController?.popViewController(animated: true)
+            
+            let weatherModuleVC = self.viewController?.navigationController?.viewControllers.first as! WeatherModuleViewController
+            guard let cities = self.viewController?.cities else { return }
+            weatherModuleVC.addedCities.append(contentsOf: cities)
+        })
     }
 }

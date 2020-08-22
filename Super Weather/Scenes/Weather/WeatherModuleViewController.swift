@@ -11,16 +11,16 @@ import UIKit
 
 protocol WeatherModuleDisplayLogic: class {
     
-    ///описание
+    ///Отображение индикатора загрузки
     func displayActivityIndicator(isActive: Bool)
     
-    ///описание
+    ///Отображение ошибки
     func displayError(_ errorModel: WeatherModels.Show.ErrorModel)
     
-    ///описание
+    ///Отображение погоды из viewModel
     func displayWeather(_ viewModel: WeatherModels.Show.ViewModel)
     
-    ///описание
+    ///Отоброжение экрана с поиском города
     func displayCitySearch()
 }
 
@@ -101,7 +101,7 @@ extension WeatherModuleViewController: WeatherModuleDisplayLogic {
 
 extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        addedCities.count
+        return addedCities.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,7 +115,9 @@ extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard let city = tableView.cellForRow(at: indexPath)?.textLabel?.text else { return }
+        let request = WeatherModels.Fetch.Request(city: city)
+        interactor.fetchWeather(request)
         tableView.deselectRow(at: indexPath, animated: true)
         
     }

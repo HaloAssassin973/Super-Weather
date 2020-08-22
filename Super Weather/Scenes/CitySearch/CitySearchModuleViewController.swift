@@ -30,13 +30,13 @@ final class CitySearchModuleViewController: UIViewController {
     
     var interactor: CitySearchModuleBusinessLogic!
     var router: CitySearchModuleRoutingLogic!
-    
+    var cities: [String] = []
     
     //MARK: - Private properties
     
     private let tableView = UITableView()
     private let searchController = UISearchController(searchResultsController: nil)
-    private var cities: [String] = []
+    
     
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -62,8 +62,8 @@ final class CitySearchModuleViewController: UIViewController {
 extension CitySearchModuleViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let city = searchBar.text else { return }
+        router.routeToWeatherModule()
         cities.append(city)
-        tableView.reloadData()
     }
 }
 
@@ -86,6 +86,7 @@ extension CitySearchModuleViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellId.rawValue, for: indexPath)
         
+        cell.textLabel?.text = cities[indexPath.row]
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
         
@@ -115,7 +116,7 @@ extension CitySearchModuleViewController {
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
         } else {
-            // Fallback on earlier versions
+            navigationItem.titleView = searchController.searchBar
         }
         definesPresentationContext = true
     }

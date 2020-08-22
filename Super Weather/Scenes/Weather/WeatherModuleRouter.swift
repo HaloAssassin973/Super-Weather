@@ -14,7 +14,7 @@ protocol WeatherModuleRoutingLogic: class {
     ///описание
     func showErrorAlert(message: String, completion: ((Bool) -> Void)?)
     
-    ///описание
+    ///Переход к экрану с поиском городов
     func routeToCitySearch()
 }
 

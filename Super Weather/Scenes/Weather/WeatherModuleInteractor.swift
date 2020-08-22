@@ -92,12 +92,16 @@ extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
     }
     
     func fetchWeather(_ request: WeatherModels.Fetch.Request) {
-        dataFetcher.fetchWeather(searchTerm: request.city) { [weak self] data in
-            self?.presenter.presentWeather(WeatherModels.Fetch.Response(weather: data, icon: UIImage(), errorMessage: nil))
+        dataFetcher.fetchWeather(searchTerm: request.city) { [weak self] weather in
+            guard let iconID = weather?.weather.first?.icon else { return }
+            self?.imageWorker.getImage(with: iconID) { [weak self] (data, error) in
+                guard let iconData = data else { return }
+                let icon = UIImage(data: iconData)
+                self?.presenter.presentWeather(WeatherModels.Fetch.Response(weather: weather, icon: icon, errorMessage: nil))
+            }
         }
     }
 }
-
 
 // MARK: - CoreLocation Delegate
 
