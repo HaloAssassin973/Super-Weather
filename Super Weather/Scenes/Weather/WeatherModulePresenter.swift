@@ -49,7 +49,7 @@ extension WeatherModulePresenter: WeatherModulePresentationLogic {
         let viewModel = WeatherModels.Show.ViewModel(cityName: weather.name,
                                                      temperature: String(format: "%.0f", weather.main.tempCelsius) + "°",
                                                      description: weather.weather.first?.weatherDescription,
-                                                     image: UIImage())
+                                                     image: response.icon)
         view?.displayWeather(viewModel)
     }
     

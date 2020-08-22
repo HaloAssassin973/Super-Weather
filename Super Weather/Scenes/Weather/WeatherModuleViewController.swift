@@ -88,9 +88,7 @@ extension WeatherModuleViewController: WeatherModuleDisplayLogic {
         cityLabel.text = viewModel.cityName
         temperatureLabel.text = viewModel.temperature
         descriptionLabel.text = viewModel.description
-        //        if let iconID = viewModel.iconID {
-        //            iconImageView.addImage(with: iconID)
-        //        }
+        iconImageView.image = viewModel.image
     }
     
     func displayCitySearch() {
