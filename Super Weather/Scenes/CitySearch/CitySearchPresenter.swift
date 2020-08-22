@@ -7,26 +7,37 @@
 //
 
 
-protocol CitySearchPresenterInput {
+import UIKit
+
+protocol CitySearchModulePresentationLogic: class {
     
+    ///описание
+    func presentLoading(isActive: Bool)
+    
+    ///описание
+    func presentWeather(_ response: CitySearchModels.Fetch.Response)
+    
+    ///описание
+    func presentWeather()
 }
 
-protocol CitySearchPresenterOutput: AnyObject {
-    func printWeather(_ viewModel: CitySearchScene.FetchWeather.ViewModel)
+class CitySearchModulePresenter {
+    
+    weak var view: CitySearchModuleDisplayLogic?
+
 }
 
-class CitySearchPresenter: CitySearchPresenterInput {
-    
-    weak var output: CitySearchPresenterOutput?
-    
-    // MARK: - Presentation logic
-    
-}
-
-extension CitySearchPresenter: CitySearchInteractorOutput {
-    
-    func presentWeather(_ response: CitySearchScene.FetchWeather.Response) {
-        let viewModel = CitySearchScene.FetchWeather.ViewModel(weather: response.weather)
-        output?.printWeather(viewModel)
+extension CitySearchModulePresenter: CitySearchModulePresentationLogic {
+    func presentWeather(_ response: CitySearchModels.Fetch.Response) {
+        
     }
+    
+    func presentWeather() {
+
+    }
+    
+    func presentLoading(isActive: Bool) {
+        
+    }
+    
 }

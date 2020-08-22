@@ -81,7 +81,7 @@ extension WeatherModuleViewController: WeatherModuleDisplayLogic {
     
     func displayError(_ errorModel: WeatherModels.Show.ErrorModel) {
         router.showErrorAlert(message: errorModel.message) { [weak self] success in
-//            self?.interactor....
+            //            self?.interactor....
         }
     }
     
@@ -89,9 +89,9 @@ extension WeatherModuleViewController: WeatherModuleDisplayLogic {
         cityLabel.text = viewModel.cityName
         temperatureLabel.text = viewModel.temperature
         descriptionLabel.text = viewModel.description
-//        if let iconID = viewModel.iconID {
-//            iconImageView.addImage(with: iconID)
-//        }
+        //        if let iconID = viewModel.iconID {
+        //            iconImageView.addImage(with: iconID)
+        //        }
     }
     
     func displayCitySearch() {
@@ -165,7 +165,7 @@ private extension WeatherModuleViewController {
     }
     
     @objc func addTapped() {
-        navigationController?.pushViewController(CitySearchViewController(),
+        navigationController?.pushViewController(CitySearchModuleViewController(),
                                                  animated: true)
     }
     

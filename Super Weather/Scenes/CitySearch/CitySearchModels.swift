@@ -6,11 +6,10 @@
 //  Copyright (c) 2020 Игорь Силаев. All rights reserved.
 //
 
-//
-//  Type "usecase" for some magic!
 
-struct CitySearchScene {
-    struct FetchWeather {
+struct CitySearchModels {
+    
+    struct Fetch {
         
         struct Request {
             let city: String
@@ -18,10 +17,7 @@ struct CitySearchScene {
         
         struct Response {
             let weather: WeatherAPI?
-        }
-        
-        struct ViewModel {
-            let weather: WeatherAPI?
+            let errorMessage: String?
         }
     }
 }

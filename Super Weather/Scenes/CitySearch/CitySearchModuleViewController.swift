@@ -1,5 +1,5 @@
 //
-//  CitySearchViewController.swift
+//  CitySearchModuleViewController.swift
 //  Super Weather
 //
 //  Created by Игорь Силаев on 11.08.2020.
@@ -9,19 +9,30 @@
 
 import UIKit
 
-protocol CitySearchViewControllerInput {
+protocol CitySearchModuleDisplayLogic: class {
     
+    ///описание
+    func displayWeather()
 }
 
-protocol CitySearchViewControllerOutput {
-    func fetchWeather(_ request: CitySearchScene.FetchWeather.Request)
-}
-
-class CitySearchViewController: UIViewController, CitySearchViewControllerInput {
+final class CitySearchModuleViewController: UIViewController {
+    
+    //MARK: - Constants
+    
+    private enum Constants: String {
+        case cellId
+        case title = "Cities List"
+        case placeholder = "Search City"
+    }
+    
   
-    //MARK: - Properties
-    var output: CitySearchViewControllerOutput?
-    var router: CitySearchRouter?
+    //MARK: - Public properties
+    
+    var interactor: CitySearchModuleBusinessLogic!
+    var router: CitySearchModuleRoutingLogic!
+    
+    
+    //MARK: - Private properties
     
     private let tableView = UITableView()
     private let searchController = UISearchController(searchResultsController: nil)
@@ -35,57 +46,43 @@ class CitySearchViewController: UIViewController, CitySearchViewControllerInput 
     var isFiltering: Bool {
         return searchController.isActive && !isSearchBarEmpty
     }
-    
-    //MARK: - Constants
-    
-    private enum Constants: String {
-        case cellId
-        case title = "Cities List"
-        case placeholder = "Search City"
-    }
+
     
     // MARK: - Object lifecycle
     
     override func loadView() {
         super.loadView()
-        CitySearchConfigurator.sharedInstance.configure(viewController: self)
+        CitySearchModule.build(viewController: self)
     }
     
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.assignbackground()
-        configurateNavigation()
-        view.addSubview(tableView)
-        configurateTableView()
-        setTableViewConstraints()
-        configurateSearchController()
+        configurateView()
+        interactor.handleViewReady()
     }
-    
-    // MARK: - Requests
-        
+
 }
 
-extension CitySearchViewController: UISearchBarDelegate {
+extension CitySearchModuleViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let city = searchBar.text else { return }
-        let request = CitySearchScene.FetchWeather.Request(city: city)
-        output?.fetchWeather(request)
+        let request = CitySearchModels.Fetch.Request(city: city)
+        interactor?.fetchWeather(request)
     }
 }
 
 // MARK: - Display logic
-extension CitySearchViewController: CitySearchPresenterOutput {
-    func printWeather(_ viewModel: CitySearchScene.FetchWeather.ViewModel) {
-        print(viewModel.weather)
+extension CitySearchModuleViewController: CitySearchModuleDisplayLogic {
+    func displayWeather() {
+        
     }
 }
 
 //MARK: - TableView Protocols Implementation
 
-extension CitySearchViewController: UITableViewDataSource, UITableViewDelegate {
+extension CitySearchModuleViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
@@ -132,7 +129,7 @@ extension CitySearchViewController: UITableViewDataSource, UITableViewDelegate {
 
 //MARK: - Configurations & Constraints
 
-extension CitySearchViewController {
+extension CitySearchModuleViewController {
     private func configurateSearchController() {
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -164,5 +161,16 @@ extension CitySearchViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
+    }
+    
+    private func configurateView() {
+        view.assignbackground()
+        
+        configurateNavigation()
+        view.addSubview(tableView)
+        configurateTableView()
+        setTableViewConstraints()
+        
+        configurateSearchController()
     }
 }
