@@ -106,9 +106,9 @@ extension WeatherModuleInteractor: CLLocationManagerDelegate {
         case .authorizedAlways:
             print("authorizedAlways")
         case .restricted:
-            print("restricted")           // TODO: handler
+            print("restricted")           
         case .denied:
-            print("denied")               // TODO: handler
+            print("denied")
         @unknown default:
             print("New Status")
         }

@@ -35,6 +35,8 @@ extension WeatherModuleRouter: WeatherModuleRoutingLogic {
     }
     
     func routeToCitySearch() {
-        //do routeToCitySearch
+        let citySearchVC = CitySearchModuleViewController()
+        CitySearchModule.build(viewController: citySearchVC)
+        viewController?.navigationController?.pushViewController(citySearchVC, animated: true)
     }
 }

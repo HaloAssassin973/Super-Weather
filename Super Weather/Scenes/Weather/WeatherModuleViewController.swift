@@ -140,7 +140,7 @@ extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegat
 private extension WeatherModuleViewController {
     func configurateView() {
         
-        view.assignbackground()
+        view.assignBackground()
         
         configurateNavigation()
         
@@ -165,8 +165,7 @@ private extension WeatherModuleViewController {
     }
     
     @objc func addTapped() {
-        navigationController?.pushViewController(CitySearchModuleViewController(),
-                                                 animated: true)
+        displayCitySearch()
     }
     
     func configurateTopStackView() {
@@ -179,7 +178,7 @@ private extension WeatherModuleViewController {
     
     func configurateBottomStackView() {
         temperatureLabel.configurateTemperatureLabel()
-        //        iconImageView.configuration()
+        iconImageView.configuration()
         bottomStackView.configuration()
         bottomStackView.addArrangedSubview(iconImageView)
         bottomStackView.addArrangedSubview(temperatureLabel)

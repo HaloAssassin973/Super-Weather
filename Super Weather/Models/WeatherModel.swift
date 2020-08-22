@@ -8,7 +8,9 @@
 
 import Foundation
 
+
 // MARK: - WeatherAPI
+
 struct WeatherAPI: Decodable {
     let coord: Coord
     let weather: [Weather]
@@ -24,17 +26,23 @@ struct WeatherAPI: Decodable {
     let cod: Int
 }
 
+
 // MARK: - Clouds
+
 struct Clouds: Decodable {
     let all: Int
 }
 
+
 // MARK: - Coord
+
 struct Coord: Decodable {
     let lon, lat: Double
 }
 
+
 // MARK: - Main
+
 struct Main: Decodable {
     let temp: Double
     let pressure, humidity: Int
@@ -50,9 +58,9 @@ struct Main: Decodable {
         return tempMax - 273.15
     }
     
-//    var tempFahrenheit: Double {
-//        return (temp - 273.15) * 1.8 + 32
-//    }
+    var tempFahrenheit: Double {
+        return (temp - 273.15) * 1.8 + 32
+    }
     
     enum CodingKeys: String, CodingKey {
         case temp, pressure, humidity
@@ -61,7 +69,9 @@ struct Main: Decodable {
     }
 }
 
+
 // MARK: - Sys
+
 struct Sys: Decodable {
     let type, id: Int
     let message: Double?
@@ -69,7 +79,9 @@ struct Sys: Decodable {
     let sunrise, sunset: Int
 }
 
+
 // MARK: - Weather
+
 struct Weather: Decodable {
     let id: Int
     let main, weatherDescription, icon: String
@@ -81,9 +93,10 @@ struct Weather: Decodable {
     }
 }
 
+
 // MARK: - Wind
+
 struct Wind: Decodable {
     let speed: Double
     let deg: Int
 }
-

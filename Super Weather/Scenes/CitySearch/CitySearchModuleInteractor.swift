@@ -55,7 +55,7 @@ extension CitySearchModuleInteractor: CitySearchModuleBusinessLogic {
     }
     
     func handleViewReady() {
-        
+        print("view ready")
     }
     
     func retrieveInitioalData() {

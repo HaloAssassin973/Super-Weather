@@ -48,13 +48,6 @@ final class CitySearchModuleViewController: UIViewController {
     }
 
     
-    // MARK: - Object lifecycle
-    
-    override func loadView() {
-        super.loadView()
-        CitySearchModule.build(viewController: self)
-    }
-    
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
@@ -62,8 +55,10 @@ final class CitySearchModuleViewController: UIViewController {
         configurateView()
         interactor.handleViewReady()
     }
-
 }
+
+
+// MARK: - SearchBar Delegate
 
 extension CitySearchModuleViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -74,6 +69,7 @@ extension CitySearchModuleViewController: UISearchBarDelegate {
 }
 
 // MARK: - Display logic
+
 extension CitySearchModuleViewController: CitySearchModuleDisplayLogic {
     func displayWeather() {
         
@@ -164,7 +160,7 @@ extension CitySearchModuleViewController {
     }
     
     private func configurateView() {
-        view.assignbackground()
+        view.assignBackground()
         
         configurateNavigation()
         view.addSubview(tableView)

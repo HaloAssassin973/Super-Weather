@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     
-    func assignbackground() {
+    func assignBackground() {
         let background = UIImage(named: "background")
 
         var imageView: UIImageView!
