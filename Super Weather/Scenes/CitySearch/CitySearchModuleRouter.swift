@@ -15,7 +15,7 @@ protocol CitySearchModuleRoutingLogic: class {
     func showErrorAlert(message: String, completion: ((Bool) -> Void)?)
     
     ///описание
-    func routeToWeather()
+    func routeToWeatherModule()
 }
 
 
@@ -34,7 +34,7 @@ extension CitySearchModuleRouter: CitySearchModuleRoutingLogic {
         //do showErrorAlert
     }
     
-    func routeToWeather() {
+    func routeToWeatherModule() {
         //do routeToWeather
     }
 }

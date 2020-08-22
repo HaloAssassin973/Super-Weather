@@ -12,7 +12,7 @@ import UIKit
 protocol CitySearchModuleDisplayLogic: class {
     
     ///описание
-    func displayWeather()
+    func displayWeatherModule()
 }
 
 final class CitySearchModuleViewController: UIViewController {
@@ -37,7 +37,6 @@ final class CitySearchModuleViewController: UIViewController {
     private let tableView = UITableView()
     private let searchController = UISearchController(searchResultsController: nil)
     private var cities: [String] = []
-    private var filteredCities: [String] = []
     
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -63,15 +62,15 @@ final class CitySearchModuleViewController: UIViewController {
 extension CitySearchModuleViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let city = searchBar.text else { return }
-        let request = CitySearchModels.Fetch.Request(city: city)
-        interactor?.fetchWeather(request)
+        cities.append(city)
+        tableView.reloadData()
     }
 }
 
 // MARK: - Display logic
 
 extension CitySearchModuleViewController: CitySearchModuleDisplayLogic {
-    func displayWeather() {
+    func displayWeatherModule() {
         
     }
 }
@@ -81,22 +80,11 @@ extension CitySearchModuleViewController: CitySearchModuleDisplayLogic {
 extension CitySearchModuleViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering {
-            return filteredCities.count
-        }
-        
         return cities.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellId.rawValue, for: indexPath)
-        if isFiltering {
-            cell.textLabel!.text = filteredCities[indexPath.row]
-            cell.accessibilityIdentifier = filteredCities[indexPath.row]
-        } else {
-            cell.textLabel!.text = cities[indexPath.row]
-            cell.accessibilityIdentifier = cities[indexPath.row]
-        }
         
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
@@ -105,20 +93,13 @@ extension CitySearchModuleViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var city = ""
-        if isFiltering {
-            city = filteredCities[indexPath.row]
-        } else {
-            city = cities[indexPath.row]
-        }
         
-//        dismiss(animated: true, completion: {
-//            self.navigationController?.popViewController(animated: true)
-//            let weatherVC = self.navigationController?.viewControllers.first as! WeatherModuleViewController
-//            if !weatherVC.addedCities.contains(city) {
-//                weatherVC.addedCities.append(city)
-//            }
-//        })
+        dismiss(animated: true, completion: {
+            self.navigationController?.popViewController(animated: true)
+            
+            let weatherModuleVC = self.navigationController?.viewControllers.first as! WeatherModuleViewController
+            weatherModuleVC.addedCities = self.cities
+        })
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

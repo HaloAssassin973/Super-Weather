@@ -53,7 +53,7 @@ final class WeatherModuleViewController: UIViewController {
     private let iconImageView = UIImageView()
     private let temperatureLabel = UILabel()
     
-    private var addedCities: [String] = []
+    var addedCities: [String] = []
     
     
     // MARK: - View lifecycle

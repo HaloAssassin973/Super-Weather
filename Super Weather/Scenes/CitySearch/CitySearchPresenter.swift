@@ -18,7 +18,7 @@ protocol CitySearchModulePresentationLogic: class {
     func presentWeather(_ response: CitySearchModels.Fetch.Response)
     
     ///описание
-    func presentWeather()
+    func presentWeatherModule()
 }
 
 class CitySearchModulePresenter {
@@ -32,7 +32,7 @@ extension CitySearchModulePresenter: CitySearchModulePresentationLogic {
         
     }
     
-    func presentWeather() {
+    func presentWeatherModule() {
 
     }
     
