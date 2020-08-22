@@ -55,7 +55,6 @@ final class WeatherModuleViewController: UIViewController {
     
     var addedCities: [String] = []
     
-    
     // MARK: - View lifecycle
     
     override func viewDidLoad() {

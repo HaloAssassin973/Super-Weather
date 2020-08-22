@@ -12,7 +12,7 @@ protocol DataFetcherWorker {
     func fetchWeather(searchTerm: String, completion: @escaping (WeatherAPI?) -> ())
 }
 
-class NetworkDataFetcher: DataFetcherWorker {
+final class NetworkDataFetcher: DataFetcherWorker {
     
     var networkWorker = NetworkWorker()
     

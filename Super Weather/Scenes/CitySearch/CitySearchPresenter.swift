@@ -21,7 +21,7 @@ protocol CitySearchModulePresentationLogic: class {
     func presentWeatherModule()
 }
 
-class CitySearchModulePresenter {
+final class CitySearchModulePresenter {
     
     weak var view: CitySearchModuleDisplayLogic?
 

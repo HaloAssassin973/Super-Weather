@@ -18,6 +18,7 @@ struct WeatherModels {
         
         struct Response {
             let weather: WeatherAPI?
+            let icon: UIImage?
             let errorMessage: String?
         }
     }

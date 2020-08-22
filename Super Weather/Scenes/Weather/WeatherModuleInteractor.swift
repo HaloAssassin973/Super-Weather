@@ -7,6 +7,7 @@
 //
 
 import CoreLocation
+import UIKit
 
 protocol WeatherModuleDadaSource: class {
     
@@ -42,6 +43,7 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
     
     private lazy var dataFetcher = NetworkDataFetcher()
     private lazy var locationManager = LocationWorker(client: self)
+    private lazy var imageWorker = ImageWorker()
     
     
     //MARK: - Pivate methods
@@ -55,7 +57,12 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
             guard let self = self, let city = placemark?.locality?.applyingTransform(.toLatin, reverse: false) else { return }
             self.dataFetcher.fetchWeather(searchTerm: city) { [weak self] weather in
                 self?.presenter.presentLoading(isActive: false)
-                self?.presenter.presentWeather(WeatherModels.Fetch.Response(weather: weather, errorMessage: nil))
+                guard let iconID = weather?.weather.first?.icon else { return }
+                self?.imageWorker.getImage(with: iconID) { [weak self] (data, error) in
+                    guard let iconData = data else { return }
+                    let icon = UIImage(data: iconData)
+                    self?.presenter.presentWeather(WeatherModels.Fetch.Response(weather: weather, icon: icon, errorMessage: nil))
+                }
             }
         }
     }
@@ -86,7 +93,7 @@ extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
     
     func fetchWeather(_ request: WeatherModels.Fetch.Request) {
         dataFetcher.fetchWeather(searchTerm: request.city) { [weak self] data in
-            self?.presenter.presentWeather(WeatherModels.Fetch.Response(weather: data, errorMessage: nil))
+            self?.presenter.presentWeather(WeatherModels.Fetch.Response(weather: data, icon: UIImage(), errorMessage: nil))
         }
     }
 }
