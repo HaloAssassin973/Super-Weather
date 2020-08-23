@@ -41,6 +41,7 @@ final class CitySearchModuleInteractor: NSObject, CitySearchModuleDadaSource {
     
     private lazy var dataFetcher = NetworkDataFetcher()
     private lazy var locationManager = LocationWorker(client: self)
+    private lazy var coreDataManager = CoreDataWorker.shared
     
 }
 

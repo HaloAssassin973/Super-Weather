@@ -54,6 +54,7 @@ final class WeatherModuleViewController: UIViewController {
     private let temperatureLabel = UILabel()
     
     var addedCities: [String] = []
+    let coreData = CoreDataWorker.shared
     
     // MARK: - View lifecycle
     
@@ -61,6 +62,8 @@ final class WeatherModuleViewController: UIViewController {
         super.viewDidLoad()
         configurateView()
         interactor.handleViewReady()
+        coreData.deleteCityEntity("London")
+        print(coreData.retrieveCityEntities())
     }
     
     override func viewWillAppear(_ animated: Bool) {

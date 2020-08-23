@@ -8,25 +8,26 @@
 
 import CoreData
 
-final class CoreDataManager {
+final class CoreDataWorker {
     
     
     // MARK: - Public properties
     
-    static let shared = CoreDataManager()
+    static let shared = CoreDataWorker()
     
-    let persistentContainer: NSPersistentContainer = {
+    
+    //MARK: - Private properties
+    
+    private let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Super_Weather")
         container.loadPersistentStores { (storeDescription, error) in
+            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             if let error = error {
                 fatalError("Loading store failed \(error)")
             }
         }
         return container
     }()
-    
-    
-    //MARK: - Private properties
     
     private enum Keys {
         static let city = "CityEntity"
@@ -39,7 +40,7 @@ final class CoreDataManager {
     
     // MARK: - City CRUD
     
-    private func createCityEntity(_ city: CityModel) {
+    func createCityEntity(_ city: CityModel) {
         
         let newCity = NSEntityDescription.insertNewObject(forEntityName: Keys.city, into: context) as! CityEntity
         
@@ -52,7 +53,7 @@ final class CoreDataManager {
         }
     }
     
-    private func retrieveCityEntities() -> [CityModel]? {
+    func retrieveCityEntities() -> [CityModel]? {
         
         let fetchRequest = NSFetchRequest<CityEntity>(entityName: Keys.city)
         do {
@@ -71,7 +72,7 @@ final class CoreDataManager {
         return nil
     }
     
-    private func deleteCityEntity(_ cityName: String) {
+    func deleteCityEntity(_ cityName: String) {
         
         let fetchRequest = NSFetchRequest<CityEntity>(entityName: Keys.city)
         fetchRequest.predicate = NSPredicate(format: "cityName == %@", cityName)
