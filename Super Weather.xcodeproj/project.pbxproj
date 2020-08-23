@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D4E161324F2D8170057E434 /* CoreDataWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E161224F2D8170057E434 /* CoreDataWorker.swift */; };
+		2D4E161524F2D8640057E434 /* CityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E161424F2D8640057E434 /* CityModel.swift */; };
 		2D60628724F13CD10001BEFF /* ImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D60628624F13CD10001BEFF /* ImageWorker.swift */; };
 		2D882EBE24E1633800A3E360 /* StackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D882EB824E1633800A3E360 /* StackViewExtension.swift */; };
 		2D882EBF24E1633800A3E360 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D882EB924E1633800A3E360 /* ViewExtension.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D4E161224F2D8170057E434 /* CoreDataWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataWorker.swift; sourceTree = "<group>"; };
+		2D4E161424F2D8640057E434 /* CityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityModel.swift; sourceTree = "<group>"; };
 		2D60628624F13CD10001BEFF /* ImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWorker.swift; sourceTree = "<group>"; };
 		2D882EB824E1633800A3E360 /* StackViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewExtension.swift; sourceTree = "<group>"; };
 		2D882EB924E1633800A3E360 /* ViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
@@ -95,6 +99,7 @@
 				2D882EDF24E16C0E00A3E360 /* DataFetcherWorker.swift */,
 				2D882EDC24E1699200A3E360 /* LocationWorker.swift */,
 				2D60628624F13CD10001BEFF /* ImageWorker.swift */,
+				2D4E161224F2D8170057E434 /* CoreDataWorker.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -103,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				2D882EC424E1635F00A3E360 /* WeatherModel.swift */,
+				2D4E161424F2D8640057E434 /* CityModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -256,6 +262,7 @@
 				45B72F5E24E336BA008E9683 /* CitySearchModels.swift in Sources */,
 				2D882EC224E1633800A3E360 /* LabelExtension.swift in Sources */,
 				2D60628724F13CD10001BEFF /* ImageWorker.swift in Sources */,
+				2D4E161524F2D8640057E434 /* CityModel.swift in Sources */,
 				45B72F5D24E336BA008E9683 /* CitySearchModuleRouter.swift in Sources */,
 				45F16BBC24AB4448005FCC4B /* Super_Weather.xcdatamodeld in Sources */,
 				45B72F4E24E3315A008E9683 /* WeatherModuleRouter.swift in Sources */,
@@ -270,6 +277,7 @@
 				2D882EC024E1633800A3E360 /* ImageViewExtension.swift in Sources */,
 				45B72F5124E3315A008E9683 /* WeatherModuleInteractor.swift in Sources */,
 				45B72F5F24E336BA008E9683 /* CitySearchModuleViewController.swift in Sources */,
+				2D4E161324F2D8170057E434 /* CoreDataWorker.swift in Sources */,
 				45B72F6024E336BA008E9683 /* CitySearchModuleInteractor.swift in Sources */,
 				2D882EC524E1635F00A3E360 /* WeatherModel.swift in Sources */,
 				2D882EBE24E1633800A3E360 /* StackViewExtension.swift in Sources */,

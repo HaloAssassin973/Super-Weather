@@ -201,7 +201,7 @@ private extension WeatherModuleViewController {
             ])
         } else {
             NSLayoutConstraint.activate([
-                stackView.topAnchor.constraint(equalTo: view.topAnchor),
+                stackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
                 stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ])

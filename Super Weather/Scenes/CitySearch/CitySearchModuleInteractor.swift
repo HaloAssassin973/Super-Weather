@@ -49,13 +49,11 @@ final class CitySearchModuleInteractor: NSObject, CitySearchModuleDadaSource {
 
 extension CitySearchModuleInteractor: CitySearchModuleBusinessLogic {
     func fetchWeather(_ request: CitySearchModels.Fetch.Request) {
-        dataFetcher.fetchWeather(searchTerm: request.city) { [weak self] data in
-            self?.presenter.presentWeather(CitySearchModels.Fetch.Response(weather: data, errorMessage: nil))
-        }
+
     }
     
     func handleViewReady() {
-        print("view ready")
+
     }
     
     func retrieveInitioalData() {
@@ -87,9 +85,9 @@ extension CitySearchModuleInteractor: CLLocationManagerDelegate {
         case .authorizedAlways:
             print("authorizedAlways")
         case .restricted:
-            print("restricted")           // TODO: handler
+            print("restricted")
         case .denied:
-            print("denied")               // TODO: handler
+            print("denied")
         @unknown default:
             print("New Status")
         }

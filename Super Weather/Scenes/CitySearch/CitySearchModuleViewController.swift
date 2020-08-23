@@ -116,7 +116,7 @@ extension CitySearchModuleViewController {
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
         } else {
-            navigationItem.titleView = searchController.searchBar
+            tableView.tableHeaderView = searchController.searchBar
         }
         definesPresentationContext = true
     }
@@ -134,7 +134,7 @@ extension CitySearchModuleViewController {
     
     private func setTableViewConstraints() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

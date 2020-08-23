@@ -11,14 +11,6 @@ import UIKit
 
 protocol CitySearchModulePresentationLogic: class {
     
-    ///описание
-    func presentLoading(isActive: Bool)
-    
-    ///описание
-    func presentWeather(_ response: CitySearchModels.Fetch.Response)
-    
-    ///описание
-    func presentWeatherModule()
 }
 
 final class CitySearchModulePresenter {
@@ -28,16 +20,5 @@ final class CitySearchModulePresenter {
 }
 
 extension CitySearchModulePresenter: CitySearchModulePresentationLogic {
-    func presentWeather(_ response: CitySearchModels.Fetch.Response) {
-        
-    }
-    
-    func presentWeatherModule() {
-
-    }
-    
-    func presentLoading(isActive: Bool) {
-        
-    }
     
 }
