@@ -22,6 +22,9 @@ protocol WeatherModuleDisplayLogic: class {
     
     ///Отоброжение экрана с поиском города
     func displayCitySearch()
+    
+    ///Отображение городов в tableView
+    func displayCities(_ viewModel: WeatherModels.GetCities.ViewModel)
 }
 
 
@@ -62,8 +65,8 @@ final class WeatherModuleViewController: UIViewController {
         super.viewDidLoad()
         configurateView()
         interactor.handleViewReady()
-        coreData.deleteCityEntity("London")
-        print(coreData.retrieveCityEntities())
+        interactor.retrieveInitialData()
+        coreData.deleteCityEntity("Moskva")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,6 +99,11 @@ extension WeatherModuleViewController: WeatherModuleDisplayLogic {
     
     func displayCitySearch() {
         router.routeToCitySearch()
+    }
+    
+    func displayCities(_ viewModel: WeatherModels.GetCities.ViewModel) {
+        addedCities.append(contentsOf: viewModel.citiesNames)
+        tableView.reloadData()
     }
 }
 

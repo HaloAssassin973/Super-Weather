@@ -30,21 +30,41 @@ final class LocationWorker: NSObject {
                   completion: @escaping (CLPlacemark?) -> Void) {
         
         let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(location) { placemarks, error in
-            
-            guard error == nil else {
-                print("*** Error: \(error!.localizedDescription)")
-                completion(nil)
-                return
+        let locale = Locale(identifier: "en_US")
+        if #available(iOS 11.0, *) {
+            geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, error in
+                
+                guard error == nil else {
+                    print("*** Error: \(error!.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+                
+                guard let placemark = placemarks?[0] else {
+                    print("*** Error: placemark is nil")
+                    completion(nil)
+                    return
+                }
+                
+                completion(placemark)
             }
-            
-            guard let placemark = placemarks?[0] else {
-                print("*** Error: placemark is nil")
-                completion(nil)
-                return
+        } else {
+            geocoder.reverseGeocodeLocation(location) { placemarks, error in
+                
+                guard error == nil else {
+                    print("*** Error: \(error!.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+                
+                guard let placemark = placemarks?[0] else {
+                    print("*** Error: placemark is nil")
+                    completion(nil)
+                    return
+                }
+                
+                completion(placemark)
             }
-            
-            completion(placemark)
         }
     }
 }

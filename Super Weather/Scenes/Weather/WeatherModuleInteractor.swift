@@ -19,7 +19,7 @@ protocol WeatherModuleBusinessLogic: class {
     func handleViewReady()
     
     ///описание
-    func retrieveInitioalData()
+    func retrieveInitialData()
     
     ///описание
     func fetchWeather(_ request: WeatherModels.Fetch.Request)
@@ -44,6 +44,7 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
     private lazy var dataFetcher = NetworkDataFetcher()
     private lazy var locationManager = LocationWorker(client: self)
     private lazy var imageWorker = ImageWorker()
+    private lazy var coreDataWorker = CoreDataWorker()
     
     
     //MARK: - Pivate methods
@@ -55,6 +56,7 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
         }
         locationManager.getPlace(for: location) { [weak self] (placemark) in
             guard let self = self, let city = placemark?.locality?.applyingTransform(.toLatin, reverse: false) else { return }
+            self.coreDataWorker.createCityEntity(CityModel(cityName: city))
             self.dataFetcher.fetchWeather(searchTerm: city) { [weak self] weather in
                 self?.presenter.presentLoading(isActive: false)
                 guard let iconID = weather?.weather.first?.icon else { return }
@@ -72,8 +74,10 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
 // MARK: - Weather Module Business Logic
 
 extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
-    func retrieveInitioalData() {
-        
+    func retrieveInitialData() {
+        guard let cities = coreDataWorker.retrieveCityEntities() else { return }
+        let response = WeatherModels.GetCities.Response(city: cities)
+        self.presenter.presentCities(response)
     }
     
     func handleSearch() {

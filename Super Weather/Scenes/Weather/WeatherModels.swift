@@ -23,6 +23,17 @@ struct WeatherModels {
         }
     }
     
+    struct GetCities {
+        
+        struct Response {
+            let city: [CityModel]
+        }
+        
+        struct ViewModel {
+            let citiesNames: [String]
+        }
+    }
+    
     struct Show {
         
         struct ViewModel {
