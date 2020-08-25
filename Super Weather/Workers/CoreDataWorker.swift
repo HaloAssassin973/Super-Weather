@@ -11,11 +11,15 @@ import CoreData
 final class CoreDataWorker {
     
     
-    // MARK: - Public properties
+    // MARK: - Initialization
     
-    static let shared = CoreDataWorker()
-    
-    
+    required init(neededContext: Bool = false) {
+        if neededContext {
+            context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        } else {
+            context = persistentContainer.viewContext
+        }
+    }
     //MARK: - Private properties
     
     private let persistentContainer: NSPersistentContainer = {
@@ -33,9 +37,7 @@ final class CoreDataWorker {
         static let city = "CityEntity"
     }
     
-    private var context: NSManagedObjectContext {
-        return persistentContainer.viewContext
-    }
+    private var context: NSManagedObjectContext
     
     
     // MARK: - City CRUD
