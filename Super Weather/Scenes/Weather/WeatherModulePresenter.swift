@@ -21,6 +21,8 @@ protocol WeatherModulePresentationLogic: class {
     
     ///описание
     func presentCities(_ response: WeatherModels.GetCities.Response)
+    
+    func presentFRC(_ response: WeatherModels.FRC.Response)
 }
 
 
@@ -66,5 +68,9 @@ extension WeatherModulePresenter: WeatherModulePresentationLogic {
         }
         let viewModel = WeatherModels.GetCities.ViewModel(citiesNames: cities)
         self.view?.displayCities(viewModel)
+    }
+    
+    func presentFRC(_ response: WeatherModels.FRC.Response) {
+        self.view?.displayFRC(response.frc)
     }
 }

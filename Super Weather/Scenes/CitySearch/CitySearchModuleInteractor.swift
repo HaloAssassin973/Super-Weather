@@ -40,8 +40,8 @@ final class CitySearchModuleInteractor: NSObject, CitySearchModuleDadaSource {
     //MARK: - Pivate properties
     
     private lazy var dataFetcher = NetworkDataFetcher()
-    private lazy var locationManager = LocationWorker(client: self)
-    private lazy var coreDataManager = CoreDataWorker.shared
+    private lazy var locationManager = LocationWorker(delegate: self)
+    private lazy var coreDataManager = CoreDataWorker()
     
 }
 

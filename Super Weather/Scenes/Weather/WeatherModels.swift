@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 struct WeatherModels {
+    
+    struct FRC {
+        struct Response {
+            let frc: NSFetchedResultsController<CityEntity>
+        }
+    }
     
     struct Fetch {
         

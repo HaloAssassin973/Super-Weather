@@ -18,9 +18,9 @@ final class LocationWorker: NSObject {
     }
     
     //MARK: - Inizilization
-    init(client: CLLocationManagerDelegate) {
+    init(delegate: CLLocationManagerDelegate) {
         super.init()
-        self.locationManager.delegate = client
+        self.locationManager.delegate = delegate
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
     }

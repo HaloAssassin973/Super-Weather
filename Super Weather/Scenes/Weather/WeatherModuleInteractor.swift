@@ -21,14 +21,13 @@ protocol WeatherModuleBusinessLogic: class {
     ///описание
     func retrieveInitialData()
     
+    func retrieveDataWithFRC()
+    
     ///описание
     func fetchWeather(_ request: WeatherModels.Fetch.Request)
     
     ///описание
-    func handleSearch()
-    
-    ///описание
-    func handleTapCity(name: String)
+    func deleteCity(_ request: WeatherModels.Fetch.Request)
 }
 
 
@@ -42,7 +41,7 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
     //MARK: - Pivate properties
     
     private lazy var dataFetcher = NetworkDataFetcher()
-    private lazy var locationManager = LocationWorker(client: self)
+    private lazy var locationManager = LocationWorker(delegate: self)
     private lazy var imageWorker = ImageWorker()
     private lazy var coreDataWorker = CoreDataWorker()
     
@@ -74,20 +73,17 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
 // MARK: - Weather Module Business Logic
 
 extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
+    
+    func retrieveDataWithFRC() {
+        let frc = coreDataWorker.retrieveCityEntitiesFetchController()
+        self.presenter.presentFRC(WeatherModels.FRC.Response(frc: frc))
+    }
+
     func retrieveInitialData() {
         guard let cities = coreDataWorker.retrieveCityEntities() else { return }
         let response = WeatherModels.GetCities.Response(city: cities)
         self.presenter.presentCities(response)
     }
-    
-    func handleSearch() {
-        
-    }
-    
-    func handleTapCity(name: String) {
-        
-    }
-    
     
     func handleViewReady() {
         presenter.presentLoading(isActive: true)
@@ -104,6 +100,10 @@ extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
                 self?.presenter.presentWeather(WeatherModels.Fetch.Response(weather: weather, icon: icon, errorMessage: nil))
             }
         }
+    }
+    
+    func deleteCity(_ request: WeatherModels.Fetch.Request) {
+        coreDataWorker.deleteCityEntity(request.city)
     }
 }
 

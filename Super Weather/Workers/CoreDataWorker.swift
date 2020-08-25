@@ -8,18 +8,8 @@
 
 import CoreData
 
-final class CoreDataWorker {
+final class CoreDataWorker: NSObject {
     
-    
-    // MARK: - Initialization
-    
-    required init(neededContext: Bool = false) {
-        if neededContext {
-            context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        } else {
-            context = persistentContainer.viewContext
-        }
-    }
     //MARK: - Private properties
     
     private let persistentContainer: NSPersistentContainer = {
@@ -37,7 +27,37 @@ final class CoreDataWorker {
         static let city = "CityEntity"
     }
     
-    private var context: NSManagedObjectContext
+    private var fetcherResultsController: NSFetchedResultsController<CityEntity>?
+    private var context: NSManagedObjectContext {
+        willSet {
+            
+        }
+        didSet {
+            
+        }
+    }
+    
+    
+    // MARK: - Initialization
+    
+    required init(neededContext: Bool = false) {
+        if neededContext {
+            context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        } else {
+            context = persistentContainer.viewContext
+        }
+    }
+    
+    // MARK: - Private methods
+    
+    private func setupFetcherResultsController(for context: NSManagedObjectContext) {
+        let sortDescriptor = NSSortDescriptor(key: "cityName", ascending: true)
+        let request = NSFetchRequest<CityEntity>(entityName: Keys.city)
+        request.sortDescriptors = [sortDescriptor]
+        
+        fetcherResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetcherResultsController?.delegate = self
+    }
     
     
     // MARK: - City CRUD
@@ -74,10 +94,24 @@ final class CoreDataWorker {
         return nil
     }
     
+    func retrieveCityEntitiesFetchController() -> NSFetchedResultsController<CityEntity> {
+        
+        setupFetcherResultsController(for: context)
+        do {
+            try fetcherResultsController?.performFetch()
+        } catch {
+            fatalError("Failed to fetch entities: \(error)")
+        }
+        return fetcherResultsController!
+    }
+    
     func deleteCityEntity(_ cityName: String) {
         
         let fetchRequest = NSFetchRequest<CityEntity>(entityName: Keys.city)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "cityName", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "cityName == %@", cityName)
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        controller.delegate = self
         do {
             if let city = try context.fetch(fetchRequest).first {
                 context.delete(city)
@@ -89,3 +123,6 @@ final class CoreDataWorker {
     }
 }
 
+extension CoreDataWorker: NSFetchedResultsControllerDelegate {
+
+}

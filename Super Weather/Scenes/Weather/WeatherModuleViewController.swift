@@ -8,6 +8,7 @@
 
 
 import UIKit
+import CoreData
 
 protocol WeatherModuleDisplayLogic: class {
     
@@ -25,6 +26,8 @@ protocol WeatherModuleDisplayLogic: class {
     
     ///Отображение городов в tableView
     func displayCities(_ viewModel: WeatherModels.GetCities.ViewModel)
+    
+    func displayFRC(_ frc: NSFetchedResultsController<CityEntity>)
 }
 
 
@@ -58,6 +61,7 @@ final class WeatherModuleViewController: UIViewController {
     
     var addedCities: [String] = []
     let coreData = CoreDataWorker()
+    var frc: NSFetchedResultsController<CityEntity>?
     
     // MARK: - View lifecycle
     
@@ -65,13 +69,12 @@ final class WeatherModuleViewController: UIViewController {
         super.viewDidLoad()
         configurateView()
         interactor.handleViewReady()
-        interactor.retrieveInitialData()
+//        interactor.retrieveInitialData()
+        interactor.retrieveDataWithFRC()
+        coreData.createCityEntity(CityModel(cityName: "London"))
+//        coreData.deleteCityEntity("London")
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
+
 }
 
 
@@ -104,21 +107,28 @@ extension WeatherModuleViewController: WeatherModuleDisplayLogic {
         addedCities.append(contentsOf: viewModel.citiesNames)
         tableView.reloadData()
     }
+    
+    func displayFRC(_ frc: NSFetchedResultsController<CityEntity>) {
+        self.frc = frc
+    }
 }
 
 
 //MARK: - TableView Protocols Implementation
 
-extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegate {
+extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegate,  NSFetchedResultsControllerDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return addedCities.count
+        guard let sections = frc?.sections else { return 0 }
+        return sections[section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellId.rawValue, for: indexPath)
         
-        cell.textLabel?.text = addedCities[indexPath.row]
+        guard let city = frc?.object(at: indexPath).cityName else { return cell }
+        
+        cell.textLabel?.text = city
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
         return cell
@@ -135,6 +145,9 @@ extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
+            guard let city = tableView.cellForRow(at: indexPath)?.textLabel?.text else { return }
+            let request = WeatherModels.Fetch.Request(city: city)
+            interactor.deleteCity(request)
             addedCities.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         default:
