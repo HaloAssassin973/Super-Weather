@@ -21,8 +21,6 @@ protocol WeatherModuleBusinessLogic: class {
     ///описание
     func retrieveInitialData()
     
-    func retrieveDataWithFRC()
-    
     ///описание
     func fetchWeather(_ request: WeatherModels.Fetch.Request)
     
@@ -73,16 +71,10 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
 // MARK: - Weather Module Business Logic
 
 extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
-    
-    func retrieveDataWithFRC() {
-        let frc = coreDataWorker.retrieveCityEntitiesFetchController()
-        self.presenter.presentFRC(WeatherModels.FRC.Response(frc: frc))
-    }
 
     func retrieveInitialData() {
-        guard let cities = coreDataWorker.retrieveCityEntities() else { return }
-        let response = WeatherModels.GetCities.Response(city: cities)
-        self.presenter.presentCities(response)
+        let frc = coreDataWorker.retrieveCityEntitiesFetchController()
+        self.presenter.presentFRC(WeatherModels.FRC.Response(frc: frc))
     }
     
     func handleViewReady() {

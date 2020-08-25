@@ -20,8 +20,6 @@ protocol WeatherModulePresentationLogic: class {
     func presentCitySearch()
     
     ///описание
-    func presentCities(_ response: WeatherModels.GetCities.Response)
-    
     func presentFRC(_ response: WeatherModels.FRC.Response)
 }
 
@@ -59,15 +57,6 @@ extension WeatherModulePresenter: WeatherModulePresentationLogic {
     
     func presentCitySearch() {
         view?.displayCitySearch()
-    }
-    
-    func presentCities(_ response: WeatherModels.GetCities.Response) {
-        var cities: [String] = []
-        for city in response.city {
-            cities.append(city.cityName)
-        }
-        let viewModel = WeatherModels.GetCities.ViewModel(citiesNames: cities)
-        self.view?.displayCities(viewModel)
     }
     
     func presentFRC(_ response: WeatherModels.FRC.Response) {

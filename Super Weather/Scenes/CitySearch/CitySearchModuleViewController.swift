@@ -99,7 +99,6 @@ extension CitySearchModuleViewController: UITableViewDataSource, UITableViewDele
             self.navigationController?.popViewController(animated: true)
             
             let weatherModuleVC = self.navigationController?.viewControllers.first as! WeatherModuleViewController
-            weatherModuleVC.addedCities = self.cities
         })
         tableView.deselectRow(at: indexPath, animated: true)
     }

@@ -25,8 +25,6 @@ protocol WeatherModuleDisplayLogic: class {
     func displayCitySearch()
     
     ///Отображение городов в tableView
-    func displayCities(_ viewModel: WeatherModels.GetCities.ViewModel)
-    
     func displayFRC(_ frc: NSFetchedResultsController<CityEntity>)
 }
 
@@ -59,7 +57,6 @@ final class WeatherModuleViewController: UIViewController {
     private let iconImageView = UIImageView()
     private let temperatureLabel = UILabel()
     
-    var addedCities: [String] = []
     let coreData = CoreDataWorker()
     var frc: NSFetchedResultsController<CityEntity>?
     
@@ -69,9 +66,8 @@ final class WeatherModuleViewController: UIViewController {
         super.viewDidLoad()
         configurateView()
         interactor.handleViewReady()
-//        interactor.retrieveInitialData()
-        interactor.retrieveDataWithFRC()
-        coreData.createCityEntity(CityModel(cityName: "London"))
+        interactor.retrieveInitialData()
+//        coreData.createCityEntity(CityModel(cityName: "London"))
 //        coreData.deleteCityEntity("London")
     }
 
@@ -101,11 +97,6 @@ extension WeatherModuleViewController: WeatherModuleDisplayLogic {
     
     func displayCitySearch() {
         router.routeToCitySearch()
-    }
-    
-    func displayCities(_ viewModel: WeatherModels.GetCities.ViewModel) {
-        addedCities.append(contentsOf: viewModel.citiesNames)
-        tableView.reloadData()
     }
     
     func displayFRC(_ frc: NSFetchedResultsController<CityEntity>) {
@@ -148,7 +139,6 @@ extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegat
             guard let city = tableView.cellForRow(at: indexPath)?.textLabel?.text else { return }
             let request = WeatherModels.Fetch.Request(city: city)
             interactor.deleteCity(request)
-            addedCities.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         default:
             break

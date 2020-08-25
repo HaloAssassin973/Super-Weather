@@ -37,10 +37,6 @@ extension CitySearchModuleRouter: CitySearchModuleRoutingLogic {
     func routeToWeatherModule() {
         viewController?.dismiss(animated: true, completion: {
             self.viewController?.navigationController?.popViewController(animated: true)
-            
-            let weatherModuleVC = self.viewController?.navigationController?.viewControllers.first as! WeatherModuleViewController
-            guard let cities = self.viewController?.cities else { return }
-            weatherModuleVC.addedCities.append(contentsOf: cities)
         })
     }
 }

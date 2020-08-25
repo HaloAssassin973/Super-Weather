@@ -29,9 +29,6 @@ final class CoreDataWorker: NSObject {
     
     private var fetcherResultsController: NSFetchedResultsController<CityEntity>?
     private var context: NSManagedObjectContext {
-        willSet {
-            
-        }
         didSet {
             
         }
