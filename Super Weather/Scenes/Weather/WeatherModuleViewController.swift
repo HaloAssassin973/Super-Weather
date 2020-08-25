@@ -25,7 +25,7 @@ protocol WeatherModuleDisplayLogic: class {
     func displayCitySearch()
     
     ///Отображение городов в tableView
-    func displayInitialData(_ frc: NSFetchedResultsController<CityEntity>)
+    func displayInitialData(_ viewModel: WeatherModels.FetchInitialData.ViewModel)
 }
 
 
@@ -67,11 +67,14 @@ final class WeatherModuleViewController: UIViewController {
         super.viewDidLoad()
         configurateView()
         interactor.handleViewReady()
-        interactor.retrieveInitialData()
 //        coreData.createCityEntity(CityModel(cityName: "London"))
 //        coreData.deleteCityEntity("London")
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        interactor.retrieveInitialData()
+    }
 }
 
 
@@ -100,8 +103,8 @@ extension WeatherModuleViewController: WeatherModuleDisplayLogic {
         router.routeToCitySearch()
     }
     
-    func displayInitialData(_ frc: NSFetchedResultsController<CityEntity>) {
-        self.frc = frc
+    func displayInitialData(_ viewModel: WeatherModels.FetchInitialData.ViewModel) {
+        
     }
 }
 

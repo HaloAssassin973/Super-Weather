@@ -18,7 +18,7 @@ protocol CitySearchModuleBusinessLogic: class {
     func handleViewReady()
     
     ///описание
-    func retrieveInitioalData()
+    func retrieveInitialData()
     
     ///описание
     func fetchWeather(_ request: CitySearchModels.Fetch.Request)
@@ -28,6 +28,9 @@ protocol CitySearchModuleBusinessLogic: class {
     
     ///описание
     func handleTapCity(name: String)
+    
+    ///описание
+    func addCity(_ request: CitySearchModels.Fetch.Request)
 }
 
 final class CitySearchModuleInteractor: NSObject, CitySearchModuleDadaSource {
@@ -49,6 +52,11 @@ final class CitySearchModuleInteractor: NSObject, CitySearchModuleDadaSource {
 // MARK: - City Search Module Business Logic
 
 extension CitySearchModuleInteractor: CitySearchModuleBusinessLogic {
+    func addCity(_ request: CitySearchModels.Fetch.Request) {
+        let city = CityModel(cityName: request.city)
+        coreDataManager.createCityEntity(city)
+    }
+
     func fetchWeather(_ request: CitySearchModels.Fetch.Request) {
 
     }
@@ -57,7 +65,7 @@ extension CitySearchModuleInteractor: CitySearchModuleBusinessLogic {
 
     }
     
-    func retrieveInitioalData() {
+    func retrieveInitialData() {
         
     }
     

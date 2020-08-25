@@ -19,7 +19,7 @@ struct WeatherModels {
             let fetchRequestController: NSFetchedResultsController<CityEntity>
         }
         struct ViewModel {
-            
+            let cityNames: [String]
         }
     }
     

@@ -60,6 +60,14 @@ extension WeatherModulePresenter: WeatherModulePresentationLogic {
     }
     
     func presentInitialData(_ response: WeatherModels.FetchInitialData.Response) {
-        self.view?.displayInitialData(response.fetchRequestController)
+        var viewModel: [String] = []
+        guard let cities = response.fetchRequestController.fetchedObjects else { return }
+        for city in cities {
+            if let cityName = city.cityName {
+                viewModel.append(cityName)
+            }
+        }
+        
+        self.view?.displayInitialData(WeatherModels.FetchInitialData.ViewModel(cityNames: viewModel))
     }
 }

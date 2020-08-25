@@ -30,7 +30,7 @@ final class CitySearchModuleViewController: UIViewController {
     
     var interactor: CitySearchModuleBusinessLogic!
     var router: CitySearchModuleRoutingLogic!
-    var cities: [String] = []
+    
     
     //MARK: - Private properties
     
@@ -62,8 +62,9 @@ final class CitySearchModuleViewController: UIViewController {
 extension CitySearchModuleViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let city = searchBar.text else { return }
+        let request = CitySearchModels.Fetch.Request(city: city)
+        interactor.addCity(request)
         router.routeToWeatherModule()
-        cities.append(city)
     }
 }
 
@@ -80,13 +81,12 @@ extension CitySearchModuleViewController: CitySearchModuleDisplayLogic {
 extension CitySearchModuleViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cities.count
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellId.rawValue, for: indexPath)
         
-        cell.textLabel?.text = cities[indexPath.row]
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
         

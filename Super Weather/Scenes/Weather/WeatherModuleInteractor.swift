@@ -72,7 +72,6 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
 // MARK: - Weather Module Business Logic
 
 extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
-
     func retrieveInitialData() {
         let frc = coreDataWorker.retrieveCityEntitiesFetchController()
         self.presenter.presentInitialData(WeatherModels.FetchInitialData.Response(fetchRequestController: frc))
