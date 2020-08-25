@@ -22,10 +22,10 @@ protocol WeatherModuleBusinessLogic: class {
     func retrieveInitialData()
     
     ///описание
-    func fetchWeather(_ request: WeatherModels.Fetch.Request)
+    func fetchWeather(_ request: WeatherModels.FetchFromNetwork.Request)
     
     ///описание
-    func deleteCity(_ request: WeatherModels.Fetch.Request)
+    func deleteCity(_ request: WeatherModels.FetchFromNetwork.Request)
 }
 
 
@@ -60,7 +60,8 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
                 self?.imageWorker.getImage(with: iconID) { [weak self] (data, error) in
                     guard let iconData = data else { return }
                     let icon = UIImage(data: iconData)
-                    self?.presenter.presentWeather(WeatherModels.Fetch.Response(weather: weather, icon: icon, errorMessage: nil))
+                    self?.presenter.presentWeather(WeatherModels.FetchFromNetwork.Response(weather: weather, icon: icon, errorMessage: nil))
+                    self?.presenter.presentLoading(isActive: false)
                 }
             }
         }
@@ -74,7 +75,7 @@ extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
 
     func retrieveInitialData() {
         let frc = coreDataWorker.retrieveCityEntitiesFetchController()
-        self.presenter.presentFRC(WeatherModels.FRC.Response(frc: frc))
+        self.presenter.presentFRC(WeatherModels.FetchInitialData.Response(fetchRequestController: frc))
     }
     
     func handleViewReady() {
@@ -83,18 +84,20 @@ extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
         fetchWeatherWithLocation()
     }
     
-    func fetchWeather(_ request: WeatherModels.Fetch.Request) {
+    func fetchWeather(_ request: WeatherModels.FetchFromNetwork.Request) {
+        presenter.presentLoading(isActive: true)
         dataFetcher.fetchWeather(searchTerm: request.city) { [weak self] weather in
             guard let iconID = weather?.weather.first?.icon else { return }
             self?.imageWorker.getImage(with: iconID) { [weak self] (data, error) in
                 guard let iconData = data else { return }
                 let icon = UIImage(data: iconData)
-                self?.presenter.presentWeather(WeatherModels.Fetch.Response(weather: weather, icon: icon, errorMessage: nil))
+                self?.presenter.presentWeather(WeatherModels.FetchFromNetwork.Response(weather: weather, icon: icon, errorMessage: nil))
+                self?.presenter.presentLoading(isActive: false)
             }
         }
     }
     
-    func deleteCity(_ request: WeatherModels.Fetch.Request) {
+    func deleteCity(_ request: WeatherModels.FetchFromNetwork.Request) {
         coreDataWorker.deleteCityEntity(request.city)
     }
 }

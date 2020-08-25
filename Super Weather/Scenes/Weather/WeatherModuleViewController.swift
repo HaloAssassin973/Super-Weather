@@ -56,6 +56,7 @@ final class WeatherModuleViewController: UIViewController {
     private let descriptionLabel = UILabel()
     private let iconImageView = UIImageView()
     private let temperatureLabel = UILabel()
+    private let activityView = UIActivityIndicatorView()
     
     let coreData = CoreDataWorker()
     var frc: NSFetchedResultsController<CityEntity>?
@@ -79,7 +80,7 @@ final class WeatherModuleViewController: UIViewController {
 extension WeatherModuleViewController: WeatherModuleDisplayLogic {
     
     func displayActivityIndicator(isActive: Bool) {
-        // display activity indicator
+        isActive ? activityView.startAnimating() : activityView.stopAnimating()
     }
     
     func displayError(_ errorModel: WeatherModels.Show.ErrorModel) {
@@ -127,7 +128,7 @@ extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let city = tableView.cellForRow(at: indexPath)?.textLabel?.text else { return }
-        let request = WeatherModels.Fetch.Request(city: city)
+        let request = WeatherModels.FetchFromNetwork.Request(city: city)
         interactor.fetchWeather(request)
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -137,7 +138,7 @@ extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegat
         switch editingStyle {
         case .delete:
             guard let city = tableView.cellForRow(at: indexPath)?.textLabel?.text else { return }
-            let request = WeatherModels.Fetch.Request(city: city)
+            let request = WeatherModels.FetchFromNetwork.Request(city: city)
             interactor.deleteCity(request)
             tableView.deleteRows(at: [indexPath], with: .fade)
         default:
@@ -163,6 +164,18 @@ private extension WeatherModuleViewController {
         view.addSubview(tableView)
         configurateTableView()
         setTableViewConstraints()
+        
+        view.addSubview(activityView)
+        configurateActivityView()
+        setActivityViewConstraints()
+    }
+    
+    func configurateActivityView() {
+        activityView.style = .whiteLarge
+    }
+    
+    func setActivityViewConstraints() {
+        activityView.center = self.view.center
     }
     
     func configurateNavigation() {

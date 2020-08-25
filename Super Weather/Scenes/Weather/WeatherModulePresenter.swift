@@ -14,13 +14,13 @@ protocol WeatherModulePresentationLogic: class {
     func presentLoading(isActive: Bool)
     
     ///описание
-    func presentWeather(_ response: WeatherModels.Fetch.Response)
+    func presentWeather(_ response: WeatherModels.FetchFromNetwork.Response)
     
     ///описание
     func presentCitySearch()
     
     ///описание
-    func presentFRC(_ response: WeatherModels.FRC.Response)
+    func presentFRC(_ response: WeatherModels.FetchInitialData.Response)
 }
 
 
@@ -37,7 +37,7 @@ extension WeatherModulePresenter: WeatherModulePresentationLogic {
         view?.displayActivityIndicator(isActive: isActive)
     }
     
-    func presentWeather(_ response: WeatherModels.Fetch.Response) {
+    func presentWeather(_ response: WeatherModels.FetchFromNetwork.Response) {
         if let message = response.errorMessage {
             let model = WeatherModels.Show.ErrorModel(message: message)
             view?.displayError(model)
@@ -59,7 +59,7 @@ extension WeatherModulePresenter: WeatherModulePresentationLogic {
         view?.displayCitySearch()
     }
     
-    func presentFRC(_ response: WeatherModels.FRC.Response) {
-        self.view?.displayFRC(response.frc)
+    func presentFRC(_ response: WeatherModels.FetchInitialData.Response) {
+        self.view?.displayFRC(response.fetchRequestController)
     }
 }

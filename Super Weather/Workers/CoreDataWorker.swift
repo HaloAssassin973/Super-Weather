@@ -28,11 +28,7 @@ final class CoreDataWorker: NSObject {
     }
     
     private var fetcherResultsController: NSFetchedResultsController<CityEntity>?
-    private var context: NSManagedObjectContext {
-        didSet {
-            
-        }
-    }
+    private var context: NSManagedObjectContext
     
     
     // MARK: - Initialization
@@ -72,25 +68,6 @@ final class CoreDataWorker: NSObject {
         }
     }
     
-    func retrieveCityEntities() -> [CityModel]? {
-        
-        let fetchRequest = NSFetchRequest<CityEntity>(entityName: Keys.city)
-        do {
-            let cities = try context.fetch(fetchRequest)
-            
-            var result: [CityModel] = []
-            for city in cities {
-                guard let cityName = city.cityName else { return nil }
-                let cityModel = CityModel(cityName: cityName)
-                result.append(cityModel)
-            }
-            return result
-        } catch {
-            print("Failed to get city: \(error)")
-        }
-        return nil
-    }
-    
     func retrieveCityEntitiesFetchController() -> NSFetchedResultsController<CityEntity> {
         
         setupFetcherResultsController(for: context)
@@ -105,10 +82,7 @@ final class CoreDataWorker: NSObject {
     func deleteCityEntity(_ cityName: String) {
         
         let fetchRequest = NSFetchRequest<CityEntity>(entityName: Keys.city)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "cityName", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "cityName == %@", cityName)
-        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        controller.delegate = self
         do {
             if let city = try context.fetch(fetchRequest).first {
                 context.delete(city)

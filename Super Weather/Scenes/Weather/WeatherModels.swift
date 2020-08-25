@@ -11,13 +11,19 @@ import CoreData
 
 struct WeatherModels {
     
-    struct FRC {
+    struct FetchInitialData {
+        struct Request {
+            
+        }
         struct Response {
-            let frc: NSFetchedResultsController<CityEntity>
+            let fetchRequestController: NSFetchedResultsController<CityEntity>
+        }
+        struct ViewModel {
+            
         }
     }
     
-    struct Fetch {
+    struct FetchFromNetwork {
         
         struct Request {
             let city: String
@@ -35,7 +41,6 @@ struct WeatherModels {
         struct Response {
             let city: [CityModel]
         }
-        
         struct ViewModel {
             let citiesNames: [String]
         }
