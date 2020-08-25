@@ -25,7 +25,7 @@ protocol WeatherModuleDisplayLogic: class {
     func displayCitySearch()
     
     ///Отображение городов в tableView
-    func displayFRC(_ frc: NSFetchedResultsController<CityEntity>)
+    func displayInitialData(_ frc: NSFetchedResultsController<CityEntity>)
 }
 
 
@@ -100,7 +100,7 @@ extension WeatherModuleViewController: WeatherModuleDisplayLogic {
         router.routeToCitySearch()
     }
     
-    func displayFRC(_ frc: NSFetchedResultsController<CityEntity>) {
+    func displayInitialData(_ frc: NSFetchedResultsController<CityEntity>) {
         self.frc = frc
     }
 }
@@ -128,7 +128,7 @@ extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let city = tableView.cellForRow(at: indexPath)?.textLabel?.text else { return }
-        let request = WeatherModels.FetchFromNetwork.Request(city: city)
+        let request = WeatherModels.Fetch.Request(city: city)
         interactor.fetchWeather(request)
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -138,7 +138,7 @@ extension WeatherModuleViewController: UITableViewDataSource, UITableViewDelegat
         switch editingStyle {
         case .delete:
             guard let city = tableView.cellForRow(at: indexPath)?.textLabel?.text else { return }
-            let request = WeatherModels.FetchFromNetwork.Request(city: city)
+            let request = WeatherModels.Fetch.Request(city: city)
             interactor.deleteCity(request)
             tableView.deleteRows(at: [indexPath], with: .fade)
         default:

@@ -11,7 +11,7 @@ import UIKit
 
 protocol WeatherModuleRoutingLogic: class {
     
-    ///описание
+    ///Показ ошибки
     func showErrorAlert(message: String, completion: ((Bool) -> Void)?)
     
     ///Переход к экрану с поиском городов
@@ -20,6 +20,12 @@ protocol WeatherModuleRoutingLogic: class {
 
 
 final class WeatherModuleRouter {
+    
+    // MARK: - Private properties
+    
+    private lazy var errorAlertController = UIAlertController()
+    
+    // MARK: - Public properties
     
     weak var viewController: WeatherModuleViewController?
     weak var dataSource: WeatherModuleDadaSource?

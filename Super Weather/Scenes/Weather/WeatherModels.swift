@@ -23,26 +23,14 @@ struct WeatherModels {
         }
     }
     
-    struct FetchFromNetwork {
-        
+    struct Fetch {
         struct Request {
             let city: String
         }
-        
         struct Response {
             let weather: WeatherAPI?
             let icon: UIImage?
             let errorMessage: String?
-        }
-    }
-    
-    struct GetCities {
-        
-        struct Response {
-            let city: [CityModel]
-        }
-        struct ViewModel {
-            let citiesNames: [String]
         }
     }
     
