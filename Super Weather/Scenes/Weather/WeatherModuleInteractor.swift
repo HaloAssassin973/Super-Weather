@@ -15,17 +15,17 @@ protocol WeatherModuleDadaSource: class {
 
 protocol WeatherModuleBusinessLogic: class {
     
-    ///описание
+    ///Метод вызываемой при готов View
     func handleViewReady()
     
-    ///описание
+    ///Получение данных для отображения в tableView
     func retrieveInitialData()
     
-    ///описание
+    ///Запрос погоды
     func fetchWeather(_ request: WeatherModels.Fetch.Request)
     
-    ///описание
-    func deleteCity(_ request: WeatherModels.Fetch.Request)
+    ///Удаление погоды
+    func deleteCity(_ request: WeatherModels.Delete.Request)
 }
 
 
@@ -96,7 +96,9 @@ extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
         }
     }
     
-    func deleteCity(_ request: WeatherModels.Fetch.Request) {
+    func deleteCity(_ request: WeatherModels.Delete.Request) {
+        let response = WeatherModels.Delete.Response(city: request.city, index: request.index)
+        presenter.presentWithoutDeletedCity(response)
         coreDataWorker.deleteCityEntity(request.city)
     }
 }

@@ -8,11 +8,7 @@
 
 import Foundation
 
-protocol DataFetcherWorker {
-    func fetchWeather(searchTerm: String, completion: @escaping (WeatherAPI?) -> ())
-}
-
-final class NetworkDataFetcher: DataFetcherWorker {
+final class NetworkDataFetcher {
     
     var networkWorker = NetworkWorker()
     

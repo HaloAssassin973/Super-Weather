@@ -21,6 +21,9 @@ protocol WeatherModulePresentationLogic: class {
     
     ///описание
     func presentInitialData(_ response: WeatherModels.FetchInitialData.Response)
+    
+    ///описание
+    func presentWithoutDeletedCity(_ response: WeatherModels.Delete.Response)
 }
 
 
@@ -69,5 +72,10 @@ extension WeatherModulePresenter: WeatherModulePresentationLogic {
         }
         
         self.view?.displayInitialData(WeatherModels.FetchInitialData.ViewModel(cityNames: viewModel))
+    }
+    
+    func presentWithoutDeletedCity(_ response: WeatherModels.Delete.Response) {
+        let viewModel = WeatherModels.Delete.ViewModel(city: response.city, index: response.index)
+        view?.displayWithoutDeleted(viewModel)
     }
 }

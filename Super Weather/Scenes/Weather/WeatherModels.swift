@@ -34,6 +34,21 @@ struct WeatherModels {
         }
     }
     
+    struct Delete {
+        struct Request {
+            let city: String
+            let index: Int
+        }
+        struct Response {
+            let city: String
+            let index: Int
+        }
+        struct ViewModel {
+            let city: String
+            let index: Int
+        }
+    }
+    
     struct Show {
         
         struct ViewModel {
