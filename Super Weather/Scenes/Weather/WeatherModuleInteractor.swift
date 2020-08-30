@@ -35,13 +35,10 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
     
     var presenter: WeatherModulePresentationLogic!
     
-    
-    //MARK: - Pivate properties
-    
-    private lazy var dataFetcher = NetworkDataFetcher()
-    private lazy var locationManager = LocationWorker(delegate: self)
-    private lazy var imageWorker = ImageWorker()
-    private lazy var coreDataWorker = CoreDataWorker()
+    lazy var dataFetcher: DataFetcher = NetworkDataFetcher()
+    lazy var locationManager = LocationWorker(delegate: self)
+    lazy var imageWorker = ImageWorker()
+    lazy var coreDataWorker = CoreDataWorker()
     
     
     //MARK: - Pivate methods
