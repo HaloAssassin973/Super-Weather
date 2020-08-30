@@ -14,7 +14,7 @@ final class WeatherModuleInteractorTests: XCTestCase {
     // MARK: - Private Properties
     
     private var sut: WeatherModuleInteractor!
-    private var worker: WeatherModuleBusinessLogicSpy!
+    private var dataFetcherWorker: WeatherModuleDataFetcherSpy!
     private var presenter: WeatherModulePresentionLogicSpy!
     
     // MARK: - Lifecycle
@@ -23,20 +23,20 @@ final class WeatherModuleInteractorTests: XCTestCase {
         super.setUp()
         
         let weatherInteractor = WeatherModuleInteractor()
-        let weatherWorker = WeatherModuleBusinessLogicSpy()
+        let weatherFetcherWorker = WeatherModuleDataFetcherSpy()
         let weatherPresenter = WeatherModulePresentionLogicSpy()
         
-        weatherInteractor.dataFetcher = weatherWorker
+        weatherInteractor.dataFetcher = weatherFetcherWorker
         weatherInteractor.presenter = weatherPresenter
         
         sut = weatherInteractor
-        worker = weatherWorker
+        dataFetcherWorker = weatherFetcherWorker
         presenter = weatherPresenter
     }
     
     override func tearDown() {
         sut = nil
-        worker = nil
+        dataFetcherWorker = nil
         presenter = nil
         
         super.tearDown()
@@ -49,7 +49,7 @@ final class WeatherModuleInteractorTests: XCTestCase {
         
         sut.fetchWeather(request)
         
-        XCTAssertTrue(worker.isCalledFetchWeather, "Not started worker.fetchWeather(:)")
+        XCTAssertTrue(dataFetcherWorker.isCalledFetchWeather, "Not started worker.fetchWeather(:)")
         XCTAssertTrue(presenter.isCalledPresentLoading, "Not started presenter.presentLoading")
     }
 }

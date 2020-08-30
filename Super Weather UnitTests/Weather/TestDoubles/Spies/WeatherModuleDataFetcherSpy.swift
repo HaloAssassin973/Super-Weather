@@ -9,7 +9,7 @@
 import Foundation
 @testable import Super_Weather
 
-final class WeatherModuleBusinessLogicSpy: DataFetcher {
+final class WeatherModuleDataFetcherSpy: DataFetcher {
     
     
     // MARK: - Public Properties
