@@ -45,7 +45,8 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
     
     private func fetchWeatherWithLocation() {
         guard let location = locationManager.exposedLocation else {
-            print("Location is nil")
+            let errorResponse = WeatherModels.Error.ErrorResponse(message: "Can't recognize location")
+            presenter.presentError(errorResponse)
             return
         }
         locationManager.getPlace(for: location) { [weak self] (placemark) in
@@ -76,7 +77,6 @@ extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
     
     func handleViewReady() {
         presenter.presentLoading(isActive: true)
-        //start location search
         fetchWeatherWithLocation()
     }
     
@@ -108,6 +108,8 @@ extension WeatherModuleInteractor: CLLocationManagerDelegate {
         switch status {
         case .notDetermined:
             print("notDetermined")
+            let errorResponse = WeatherModels.Error.ErrorResponse(message: "Your location not determined")
+            presenter.presentError(errorResponse)
         case .authorizedWhenInUse:
             print("authorizedWhenInUse")
             fetchWeatherWithLocation()
@@ -117,6 +119,8 @@ extension WeatherModuleInteractor: CLLocationManagerDelegate {
             print("restricted")           
         case .denied:
             print("denied")
+            let errorResponse = WeatherModels.Error.ErrorResponse(message: "Please enable location service for getting weather")
+            presenter.presentError(errorResponse)
         @unknown default:
             print("New Status")
         }

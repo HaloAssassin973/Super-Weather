@@ -16,7 +16,7 @@ protocol WeatherModuleDisplayLogic: class {
     func displayActivityIndicator(isActive: Bool)
     
     ///Отображение ошибки
-    func displayError(_ errorModel: WeatherModels.Show.ErrorModel)
+    func displayError(_ errorModel: WeatherModels.Error.ErrorModel)
     
     ///Отображение погоды из viewModel
     func displayWeather(_ viewModel: WeatherModels.Show.ViewModel)
@@ -87,10 +87,9 @@ extension WeatherModuleViewController: WeatherModuleDisplayLogic {
         isActive ? activityView.startAnimating() : activityView.stopAnimating()
     }
     
-    func displayError(_ errorModel: WeatherModels.Show.ErrorModel) {
-        router.showErrorAlert(message: errorModel.message) { [weak self] success in
-            //            self?.interactor....
-        }
+    func displayError(_ errorModel: WeatherModels.Error.ErrorModel) {
+        activityView.stopAnimating()
+        router.showErrorAlert(message: errorModel.message, completion: nil)
     }
     
     func displayWeather(_ viewModel: WeatherModels.Show.ViewModel) {

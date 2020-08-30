@@ -53,6 +53,12 @@ struct WeatherModels {
             let description: String?
             let image: UIImage?
         }
+    }
+    
+    struct Error {
+        struct ErrorResponse {
+            let message: String
+        }
         struct ErrorModel {
             let message: String
         }

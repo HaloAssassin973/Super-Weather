@@ -37,7 +37,9 @@ final class WeatherModuleRouter {
 extension WeatherModuleRouter: WeatherModuleRoutingLogic {
     
     func showErrorAlert(message: String, completion: ((Bool) -> Void)? = nil) {
-        //do showErrorAlert
+        let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        viewController?.present(errorAlert, animated: true, completion: nil)
     }
     
     func routeToCitySearch() {

@@ -24,6 +24,9 @@ protocol WeatherModulePresentationLogic: class {
     
     ///описание
     func presentWithoutDeletedCity(_ response: WeatherModels.Delete.Response)
+    
+    ///описание
+    func presentError(_ errorResponse: WeatherModels.Error.ErrorResponse)
 }
 
 
@@ -42,12 +45,12 @@ extension WeatherModulePresenter: WeatherModulePresentationLogic {
     
     func presentWeather(_ response: WeatherModels.Fetch.Response) {
         if let message = response.errorMessage {
-            let model = WeatherModels.Show.ErrorModel(message: message)
+            let model = WeatherModels.Error.ErrorModel(message: message)
             view?.displayError(model)
             return
         }
         guard let weather = response.weather else {
-            let model = WeatherModels.Show.ErrorModel(message: "Somthing went wrong") // переделать на Localizable.strings
+            let model = WeatherModels.Error.ErrorModel(message: "Somthing went wrong") // переделать на Localizable.strings
             view?.displayError(model)
             return
         }
@@ -77,5 +80,10 @@ extension WeatherModulePresenter: WeatherModulePresentationLogic {
     func presentWithoutDeletedCity(_ response: WeatherModels.Delete.Response) {
         let viewModel = WeatherModels.Delete.ViewModel(city: response.city, index: response.index)
         view?.displayWithoutDeleted(viewModel)
+    }
+    
+    func presentError(_ errorResponse: WeatherModels.Error.ErrorResponse) {
+        let errorModel = WeatherModels.Error.ErrorModel(message: errorResponse.message)
+        view?.displayError(errorModel)
     }
 }
