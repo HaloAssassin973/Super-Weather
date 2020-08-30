@@ -63,7 +63,6 @@ final class WeatherModuleViewController: UIViewController {
     
     private var cities: [String] = []
     
-    let coreData = CoreDataWorker()
     
     // MARK: - View lifecycle
     
@@ -71,8 +70,6 @@ final class WeatherModuleViewController: UIViewController {
         super.viewDidLoad()
         configurateView()
         interactor.handleViewReady()
-        coreData.createCityEntity(CityModel(cityName: "London"))
-//        coreData.deleteCityEntity("London")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -213,7 +210,7 @@ private extension WeatherModuleViewController {
     
     func configurateBottomStackView() {
         temperatureLabel.configurateTemperatureLabel()
-        iconImageView.configuration()
+        iconImageView.contentMode = .scaleAspectFit
         bottomStackView.configuration()
         bottomStackView.addArrangedSubview(iconImageView)
         bottomStackView.addArrangedSubview(temperatureLabel)

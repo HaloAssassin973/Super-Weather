@@ -12,7 +12,7 @@ extension UILabel {
     
     private enum Constant {
         static let cityTitle = "Current city"
-        static let temperatureTitle = "0°"
+        static let temperatureTitle = "-°"
         static let descriptionTitle = "Description"
         
         static let cityFont = UIFont.systemFont(ofSize: 25,

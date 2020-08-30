@@ -12,9 +12,6 @@ import CoreData
 struct WeatherModels {
     
     struct FetchInitialData {
-        struct Request {
-            
-        }
         struct Response {
             let fetchRequestController: NSFetchedResultsController<CityEntity>
         }
@@ -50,14 +47,12 @@ struct WeatherModels {
     }
     
     struct Show {
-        
         struct ViewModel {
             let cityName: String
             let temperature: String
             let description: String?
             let image: UIImage?
         }
-        
         struct ErrorModel {
             let message: String
         }
