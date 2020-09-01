@@ -106,8 +106,8 @@ extension CitySearchModuleViewController: UITableViewDataSource, UITableViewDele
 
 //MARK: - Configurations & Constraints
 
-extension CitySearchModuleViewController {
-    private func configurateSearchController() {
+private extension CitySearchModuleViewController {
+    func configurateSearchController() {
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.barStyle = .black
@@ -120,18 +120,18 @@ extension CitySearchModuleViewController {
         definesPresentationContext = true
     }
     
-    private func configurateNavigation() {
+    func configurateNavigation() {
         navigationItem.title = Constants.title.rawValue
         navigationController?.navigationBar.accessibilityIdentifier = "City navigation"
     }
     
-    private func configurateTableView() {
+    func configurateTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellId.rawValue)
         tableView.confugurate(in: self)
         tableView.accessibilityIdentifier = "City table"
     }
     
-    private func setTableViewConstraints() {
+    func setTableViewConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -140,7 +140,7 @@ extension CitySearchModuleViewController {
         ])
     }
     
-    private func configurateView() {
+    func configurateView() {
         view.assignBackground()
         
         configurateNavigation()

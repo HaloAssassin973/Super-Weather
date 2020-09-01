@@ -38,5 +38,9 @@ final class WeatherModulePresentionLogicSpy: WeatherModulePresentationLogic {
     func presentWithoutDeletedCity(_ response: WeatherModels.Delete.Response) {
         
     }
+    
+    func presentError(_ errorResponse: WeatherModels.Error.ErrorResponse) {
+        
+    }
 }
 
