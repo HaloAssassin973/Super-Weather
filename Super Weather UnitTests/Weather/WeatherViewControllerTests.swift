@@ -23,16 +23,17 @@ final class WeatherViewControllerTests: XCTestCase {
         super.setUp()
         
         let mainWindow = UIWindow()
-        let bundle = Bundle.main
-        let storyboard = UIStoryboard(name: "Weather", bundle: bundle)
         
-        let viewController = storyboard.instantiateViewController(
-            identifier: "WeatherModuleViewController") as? WeatherModuleViewController
+        let weatherViewController = WeatherModuleViewController()
+
+        window?.rootViewController = UINavigationController(rootViewController: weatherViewController)
+        window?.makeKeyAndVisible()
+        
         let interactor = WeatherBusinessLogicSpy()
         
-        viewController?.interactor = interactor
+        weatherViewController.interactor = interactor
         
-        sut = viewController
+        sut = weatherViewController
         window = mainWindow
         self.interactor = interactor
         
@@ -49,5 +50,16 @@ final class WeatherViewControllerTests: XCTestCase {
     }
     
     // MARK: - Public Methods
-
+    func testViewReady() {
+        sut.viewDidLoad()
+        
+        XCTAssertTrue(interactor.isCalledHandleViewReady, "Not started interactor.handleViewReady")
+    }
+    
+    func testRetrieveInitialData() {
+        sut.viewWillAppear(true)
+        
+        XCTAssertTrue(interactor.isCalledRetrieveInitialData, "Not started interactor.retrieveInitialData")
+        
+    }
 }

@@ -13,22 +13,27 @@ final class WeatherBusinessLogicSpy: WeatherModuleBusinessLogic {
     
     // MARK: - Private Properties
     
+    private(set) var isCalledHandleViewReady = false
+    private(set) var isCalledRetrieveInitialData = false
+    private(set) var isCalledFetchWeather = false
+    private(set) var isCalledDeleteCity = false
+    
     // MARK: - Public Methods
     
     func handleViewReady() {
-        
+        isCalledHandleViewReady = true
     }
     
     func retrieveInitialData() {
-        
+        isCalledRetrieveInitialData = true
     }
     
     func fetchWeather(_ request: WeatherModels.Fetch.Request) {
-        
+        isCalledFetchWeather = true
     }
     
     func deleteCity(_ request: WeatherModels.Delete.Request) {
-        
+        isCalledDeleteCity = true
     }
 
 }
