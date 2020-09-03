@@ -43,7 +43,7 @@ final class CitySearchModuleInteractor: NSObject, CitySearchModuleDadaSource {
     //MARK: - Pivate properties
     
     private lazy var dataFetcher = NetworkDataFetcher()
-    private lazy var locationManager = LocationWorker(delegate: self)
+    private lazy var locationManager = LocationWorker()
     private lazy var coreDataManager = CoreDataWorker()
     
 }
@@ -55,6 +55,7 @@ extension CitySearchModuleInteractor: CitySearchModuleBusinessLogic {
     func addCity(_ request: CitySearchModels.Fetch.Request) {
         let city = CityModel(cityName: request.city)
         coreDataManager.createCityEntity(city)
+        presenter.presentWeatherModule()
     }
 
     func fetchWeather(_ request: CitySearchModels.Fetch.Request) {
@@ -78,27 +79,4 @@ extension CitySearchModuleInteractor: CitySearchModuleBusinessLogic {
     }
     
     
-}
-
-
-// MARK: - CoreLocation Delegate
-
-extension CitySearchModuleInteractor: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .notDetermined:
-            print("notDetermined")
-        case .authorizedWhenInUse:
-            print("authorizedWhenInUse")
-        case .authorizedAlways:
-            print("authorizedAlways")
-        case .restricted:
-            print("restricted")
-        case .denied:
-            print("denied")
-        @unknown default:
-            print("New Status")
-        }
-    }
 }

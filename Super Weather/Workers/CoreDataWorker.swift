@@ -10,11 +10,11 @@ import CoreData
 
 protocol DataWorker {
     func createCityEntity(_ city: CityModel)
-    func retrieveCityEntitiesFetchController() -> NSFetchedResultsController<CityEntity>
+    func retrieveCityEntities() -> [CityEntity]?
     func deleteCityEntity(_ cityName: String)
 }
 
-final class CoreDataWorker: NSObject, DataWorker{
+final class CoreDataWorker: NSObject, DataWorker {
     
     //MARK: - Private properties
     
@@ -63,7 +63,7 @@ final class CoreDataWorker: NSObject, DataWorker{
     
     func createCityEntity(_ city: CityModel) {
         
-        let newCity = NSEntityDescription.insertNewObject(forEntityName: Keys.city, into: context) as! CityEntity
+        guard let newCity = NSEntityDescription.insertNewObject(forEntityName: Keys.city, into: context) as? CityEntity else { return }
         
         newCity.cityName = city.cityName
         
@@ -74,7 +74,7 @@ final class CoreDataWorker: NSObject, DataWorker{
         }
     }
     
-    func retrieveCityEntitiesFetchController() -> NSFetchedResultsController<CityEntity> {
+    func retrieveCityEntities() -> [CityEntity]? {
         
         setupFetcherResultsController(for: context)
         do {
@@ -82,7 +82,8 @@ final class CoreDataWorker: NSObject, DataWorker{
         } catch {
             fatalError("Failed to fetch entities: \(error)")
         }
-        return fetcherResultsController!
+        
+        return fetcherResultsController?.fetchedObjects
     }
     
     func deleteCityEntity(_ cityName: String) {

@@ -1,9 +1,9 @@
 //
 //  NavigationExtension.swift
-//  WeatherApp
+//  Super Weather
 //
-//  Created by  Alexander on 25.07.2020.
-//  Copyright © 2020  Alexander. All rights reserved.
+//  Created by Игорь Силаев on 11.08.2020.
+//  Copyright (c) 2020 Игорь Силаев. All rights reserved.
 //
 
 import UIKit
@@ -11,10 +11,10 @@ import UIKit
 extension UINavigationController {
     
     func configurate() {
-        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationBar.shadowImage = UIImage()
-        self.navigationBar.isTranslucent = true
-        self.view.backgroundColor = .clear
-        self.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.isTranslucent = true
+        view.backgroundColor = .clear
+        navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
 }

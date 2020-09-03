@@ -13,7 +13,7 @@ final class NetworkWorker {
     // MARK: - Methods
     func request(searchTerm: String, completion: @escaping (Data?, Error?) -> Void)  {
         let parameters = self.prepareParaments(searchTerm: searchTerm)
-        let url = self.url(params: parameters)
+        guard let url = self.url(params: parameters) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "get"
         let task = createDataTask(from: request, completion: completion)
@@ -27,13 +27,13 @@ final class NetworkWorker {
         return parameters
     }
     
-    private func url(params: [String: String]) -> URL {
+    private func url(params: [String: String]) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.openweathermap.org"
         components.path = "/data/2.5/weather"
         components.queryItems = params.map { URLQueryItem(name: $0, value: $1)}
-        return components.url!
+        return components.url
     }
     
     private func createDataTask(from request: URLRequest, completion: @escaping (Data? , Error?) -> Void) -> URLSessionDataTask {

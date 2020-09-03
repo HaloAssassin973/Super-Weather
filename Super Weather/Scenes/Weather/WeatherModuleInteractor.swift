@@ -26,6 +26,9 @@ protocol WeatherModuleBusinessLogic: class {
     
     ///Удаление погоды
     func deleteCity(_ request: WeatherModels.Delete.Request)
+    
+    ///Тап по кнопке добавления, которая переведит на другой экран
+    func addButtonTapped()
 }
 
 
@@ -71,8 +74,8 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
 
 extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
     func retrieveInitialData() {
-        let frc = coreDataWorker.retrieveCityEntitiesFetchController()
-        self.presenter.presentInitialData(WeatherModels.FetchInitialData.Response(fetchRequestController: frc))
+        let cityEntities = coreDataWorker.retrieveCityEntities()
+        self.presenter.presentInitialData(WeatherModels.FetchInitialData.Response(cityEntities: cityEntities))
     }
     
     func handleViewReady() {
@@ -98,6 +101,10 @@ extension WeatherModuleInteractor: WeatherModuleBusinessLogic {
         presenter.presentWithoutDeletedCity(response)
         coreDataWorker.deleteCityEntity(request.city)
     }
+    
+    func addButtonTapped() {
+        presenter.presentCitySearch()
+    }
 }
 
 // MARK: - CoreLocation Delegate
@@ -108,8 +115,6 @@ extension WeatherModuleInteractor: CLLocationManagerDelegate {
         switch status {
         case .notDetermined:
             print("notDetermined")
-            let errorResponse = WeatherModels.Error.ErrorResponse(message: "Your location not determined")
-            presenter.presentError(errorResponse)
         case .authorizedWhenInUse:
             print("authorizedWhenInUse")
             fetchWeatherWithLocation()

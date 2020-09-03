@@ -18,7 +18,7 @@ final class LocationWorker: NSObject {
     }
     
     //MARK: - Inizilization
-    init(delegate: CLLocationManagerDelegate) {
+    init(delegate: CLLocationManagerDelegate? = nil) {
         super.init()
         self.locationManager.delegate = delegate
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -34,8 +34,8 @@ final class LocationWorker: NSObject {
         if #available(iOS 11.0, *) {
             geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, error in
                 
-                guard error == nil else {
-                    print("*** Error: \(error!.localizedDescription)")
+                if let error = error {
+                    print("*** Error: \(error.localizedDescription)")
                     completion(nil)
                     return
                 }
@@ -51,8 +51,8 @@ final class LocationWorker: NSObject {
         } else {
             geocoder.reverseGeocodeLocation(location) { placemarks, error in
                 
-                guard error == nil else {
-                    print("*** Error: \(error!.localizedDescription)")
+                if let error = error {
+                    print("*** Error: \(error.localizedDescription)")
                     completion(nil)
                     return
                 }

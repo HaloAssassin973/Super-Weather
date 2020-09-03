@@ -1,9 +1,9 @@
 //
 //  StackViewExtension.swift
-//  WeatherApp
+//  Super Weather
 //
-//  Created by  Alexander on 21.07.2020.
-//  Copyright © 2020  Alexander. All rights reserved.
+//  Created by Игорь Силаев on 11.08.2020.
+//  Copyright (c) 2020 Игорь Силаев. All rights reserved.
 //
 
 import UIKit
@@ -11,9 +11,9 @@ import UIKit
 extension UIStackView {
     
     func configuration() {
-        self.axis = .vertical
-        self.alignment = .fill
-        self.distribution = .equalSpacing
-        self.translatesAutoresizingMaskIntoConstraints = false
+        axis = .vertical
+        alignment = .fill
+        distribution = .equalSpacing
+        translatesAutoresizingMaskIntoConstraints = false
     }
 }

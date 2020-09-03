@@ -17,13 +17,13 @@ final class NetworkDataFetcher: DataFetcher {
     var networkWorker = NetworkWorker()
     
     func fetchWeather(searchTerm: String, completion: @escaping (WeatherAPI?) -> ()) {
-        networkWorker.request(searchTerm: searchTerm) { (data, error) in
+        networkWorker.request(searchTerm: searchTerm) { [weak self] (data, error) in
             if let error = error {
                 print("Error received requesting data: \(error.localizedDescription)")
                 completion(nil)
             }
             
-            let decode = self.decodeJSON(type: WeatherAPI.self, from: data)
+            let decode = self?.decodeJSON(type: WeatherAPI.self, from: data)
             completion(decode)
         }
     }

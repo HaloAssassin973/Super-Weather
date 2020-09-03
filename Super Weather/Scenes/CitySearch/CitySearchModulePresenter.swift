@@ -10,7 +10,7 @@
 import UIKit
 
 protocol CitySearchModulePresentationLogic: class {
-    
+    func presentWeatherModule()
 }
 
 final class CitySearchModulePresenter {
@@ -20,5 +20,7 @@ final class CitySearchModulePresenter {
 }
 
 extension CitySearchModulePresenter: CitySearchModulePresentationLogic {
-    
+    func presentWeatherModule() {
+        view?.displayWeatherModule()
+    }
 }

@@ -1,9 +1,9 @@
 //
 //  LabelExtension.swift
-//  WeatherApp
+//  Super Weather
 //
-//  Created by  Alexander on 21.07.2020.
-//  Copyright © 2020  Alexander. All rights reserved.
+//  Created by Игорь Силаев on 11.08.2020.
+//  Copyright (c) 2020 Игорь Силаев. All rights reserved.
 //
 
 import UIKit
@@ -23,24 +23,24 @@ extension UILabel {
     }
     
     func configurateCityLabel(with text: String = Constant.cityTitle, and font: UIFont = Constant.cityFont) {
-        confidurateLabel(with: text, and: font)
+        configurateLabel(with: text, and: font)
     }
     
     func configurateTemperatureLabel(with text: String = Constant.temperatureTitle, and font: UIFont = Constant.temperatureFont) {
-        confidurateLabel(with: text, and: font)
+        configurateLabel(with: text, and: font)
     }
     
     func configurateDescriptionLabel(with text: String = Constant.descriptionTitle, and font: UIFont = Constant.descriptionFont) {
-        confidurateLabel(with: text, and: font)
-        self.textColor = .lightGray
+        configurateLabel(with: text, and: font)
+        textColor = .lightGray
     }
     
-    private func confidurateLabel(with text: String, and font: UIFont) {
+    private func configurateLabel(with text: String, and font: UIFont) {
         self.text = text
-        self.textColor = .white
         self.font = font
-        self.textAlignment = .center
-        self.numberOfLines = 0
-        self.translatesAutoresizingMaskIntoConstraints = true
+        textColor = .white
+        textAlignment = .center
+        numberOfLines = 0
+        translatesAutoresizingMaskIntoConstraints = true
     }
 }

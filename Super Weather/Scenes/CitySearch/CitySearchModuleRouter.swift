@@ -11,7 +11,7 @@ import UIKit
 
 protocol CitySearchModuleRoutingLogic: class {
     
-    ///описание
+    ///Показ ошибки
     func showErrorAlert(message: String, completion: ((Bool) -> Void)?)
     
     ///Переход к экрану с отображением погоды
@@ -31,7 +31,9 @@ final class CitySearchModuleRouter {
 extension CitySearchModuleRouter: CitySearchModuleRoutingLogic {
     
     func showErrorAlert(message: String, completion: ((Bool) -> Void)? = nil) {
-        //do showErrorAlert
+        let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        viewController?.present(errorAlert, animated: true, completion: nil)
     }
     
     func routeToWeatherModule() {

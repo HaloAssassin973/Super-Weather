@@ -11,7 +11,7 @@ import UIKit
 
 protocol CitySearchModuleDisplayLogic: class {
     
-    ///описание
+    ///Отображение экрана с погодой
     func displayWeatherModule()
 }
 
@@ -64,7 +64,6 @@ extension CitySearchModuleViewController: UISearchBarDelegate {
         guard let city = searchBar.text else { return }
         let request = CitySearchModels.Fetch.Request(city: city)
         interactor.addCity(request)
-        router.routeToWeatherModule()
     }
 }
 
@@ -72,7 +71,7 @@ extension CitySearchModuleViewController: UISearchBarDelegate {
 
 extension CitySearchModuleViewController: CitySearchModuleDisplayLogic {
     func displayWeatherModule() {
-        
+        router.routeToWeatherModule()
     }
 }
 
@@ -97,8 +96,6 @@ extension CitySearchModuleViewController: UITableViewDataSource, UITableViewDele
         
         dismiss(animated: true, completion: {
             self.navigationController?.popViewController(animated: true)
-            
-            let weatherModuleVC = self.navigationController?.viewControllers.first as! WeatherModuleViewController
         })
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -127,7 +124,7 @@ private extension CitySearchModuleViewController {
     
     func configurateTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellId.rawValue)
-        tableView.confugurate(in: self)
+        tableView.confugurate(controller: self)
         tableView.accessibilityIdentifier = "City table"
     }
     

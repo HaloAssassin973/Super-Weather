@@ -1,9 +1,9 @@
 //
 //  ViewExtension.swift
-//  WeatherApp
+//  Super Weather
 //
-//  Created by  Alexander on 25.07.2020.
-//  Copyright © 2020  Alexander. All rights reserved.
+//  Created by Игорь Силаев on 11.08.2020.
+//  Copyright (c) 2020 Игорь Силаев. All rights reserved.
 //
 
 import UIKit
@@ -12,13 +12,11 @@ extension UIView {
     
     func assignBackground() {
         let background = UIImage(named: "background")
-
-        var imageView: UIImageView!
-        imageView = UIImageView(frame: self.bounds)
+        let imageView = UIImageView(frame: self.bounds)
         imageView.contentMode =  .scaleToFill
         imageView.clipsToBounds = true
         imageView.image = background
         imageView.center = self.center
-        self.addSubview(imageView)
+        addSubview(imageView)
     }
 }

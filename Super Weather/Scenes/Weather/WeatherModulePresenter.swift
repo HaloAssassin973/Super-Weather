@@ -67,7 +67,7 @@ extension WeatherModulePresenter: WeatherModulePresentationLogic {
     
     func presentInitialData(_ response: WeatherModels.FetchInitialData.Response) {
         var viewModel: [String] = []
-        guard let cities = response.fetchRequestController.fetchedObjects else { return }
+        guard let cities = response.cityEntities else { return }
         for city in cities {
             if let cityName = city.cityName {
                 viewModel.append(cityName)

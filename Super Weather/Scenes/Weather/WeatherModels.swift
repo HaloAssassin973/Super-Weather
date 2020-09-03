@@ -13,7 +13,7 @@ struct WeatherModels {
     
     struct FetchInitialData {
         struct Response {
-            let fetchRequestController: NSFetchedResultsController<CityEntity>
+            let cityEntities: [CityEntity]?
         }
         struct ViewModel {
             let cityNames: [String]

@@ -196,7 +196,7 @@ private extension WeatherModuleViewController {
     }
     
     @objc func addTapped() {
-        displayCitySearch()
+        interactor.addButtonTapped()
     }
     
     func configurateTopStackView() {
@@ -242,7 +242,7 @@ private extension WeatherModuleViewController {
     
     func configurateTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellId.rawValue)
-        tableView.confugurate(in: self)
+        tableView.confugurate(controller: self)
     }
     
     func setTableViewConstraints() {
