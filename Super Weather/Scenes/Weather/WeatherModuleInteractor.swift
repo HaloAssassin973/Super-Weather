@@ -38,7 +38,7 @@ final class WeatherModuleInteractor: NSObject, WeatherModuleDadaSource {
     lazy var dataFetcher: DataFetcher = NetworkDataFetcher()
     lazy var locationManager = LocationWorker(delegate: self)
     lazy var imageWorker = ImageWorker()
-    lazy var coreDataWorker = CoreDataWorker()
+    lazy var coreDataWorker: DataWorker = CoreDataWorker()
     
     
     //MARK: - Pivate methods

@@ -1,5 +1,5 @@
 //
-//  WeatherModuleBusinessLogicSpy.swift
+//  WeatherDataFetcherSpy.swift
 //  Super Weather UnitTests
 //
 //  Created by Игорь Силаев on 30.08.2020.
@@ -9,10 +9,10 @@
 import Foundation
 @testable import Super_Weather
 
-final class WeatherModuleDataFetcherSpy: DataFetcher {
+final class WeatherDataFetcherSpy: DataFetcher {
     
     
-    // MARK: - Public Properties
+    // MARK: - Private Properties
     
     private(set) var isCalledFetchWeather = false
     

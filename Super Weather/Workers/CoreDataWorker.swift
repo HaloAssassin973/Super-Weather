@@ -8,7 +8,13 @@
 
 import CoreData
 
-final class CoreDataWorker: NSObject {
+protocol DataWorker {
+    func createCityEntity(_ city: CityModel)
+    func retrieveCityEntitiesFetchController() -> NSFetchedResultsController<CityEntity>
+    func deleteCityEntity(_ cityName: String)
+}
+
+final class CoreDataWorker: NSObject, DataWorker{
     
     //MARK: - Private properties
     
