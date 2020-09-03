@@ -12,10 +12,11 @@ import CoreData
 
 final class WeatherCoreDataWorkerSpy: DataWorker {
     
+    
     // MARK: - Private Properties
     
     private(set) var isCalledCreateCityEntity = false
-    private(set) var isCalledRetrieveCityEntitiesFetchController = false
+    private(set) var isCalledRetrieveCityEntities = false
     private(set) var isCalledDeleteCityEntity = false
     
     private let persistentContainer: NSPersistentContainer = {
@@ -36,18 +37,13 @@ final class WeatherCoreDataWorkerSpy: DataWorker {
         isCalledCreateCityEntity = true
     }
     
-    func retrieveCityEntitiesFetchController() -> NSFetchedResultsController<CityEntity> {
-        
-        isCalledRetrieveCityEntitiesFetchController = true
-        
-        let sortDescriptor = NSSortDescriptor(key: "cityName", ascending: true)
-        let request = NSFetchRequest<CityEntity>(entityName: "CityEntity")
-        request.sortDescriptors = [sortDescriptor]
-        
+    func retrieveCityEntities() -> [CityEntity]? {
         let context = persistentContainer.viewContext
+        let cityEntity = CityEntity(context: context)
+        cityEntity.cityName = "London"
+        isCalledRetrieveCityEntities = true
         
-        let fetcherResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        return fetcherResultsController
+        return [cityEntity]
     }
     
     func deleteCityEntity(_ cityName: String) {

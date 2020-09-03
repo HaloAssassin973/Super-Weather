@@ -67,7 +67,7 @@ final class WeatherInteractorTests: XCTestCase {
     func testRetrieveInitialData() {
         sut.retrieveInitialData()
         
-        XCTAssertTrue(coreDataWorker.isCalledRetrieveCityEntitiesFetchController, "Not started coreDataWorker.retrieveCityEntities")
+        XCTAssertTrue(coreDataWorker.isCalledRetrieveCityEntities, "Not started coreDataWorker.retrieveCityEntities")
         XCTAssertTrue(presenter.isCalledPresentInitialData, "Not started presenter.presentInitialData")
     }
     
