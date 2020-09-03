@@ -26,12 +26,9 @@ final class LocationWorker: NSObject {
     }
     
     //MARK: - Methods
-    func startUpdateLocation() {
-        locationManager.startUpdatingLocation()
-    }
-    
     func getPlace(for location: CLLocation,
                   completion: @escaping (CLPlacemark?) -> Void) {
+        
         let geocoder = CLGeocoder()
         let locale = Locale(identifier: "en_US")
         if #available(iOS 11.0, *) {
