@@ -22,8 +22,7 @@ protocol WeatherModuleRoutingLogic: class {
 final class WeatherModuleRouter {
     
     // MARK: - Private properties
-    
-    private lazy var errorAlertController = UIAlertController()
+
     
     // MARK: - Public properties
     
