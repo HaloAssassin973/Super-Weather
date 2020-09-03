@@ -108,10 +108,9 @@ extension WeatherModuleInteractor: CLLocationManagerDelegate {
         switch status {
         case .notDetermined:
             print("notDetermined")
-            let errorResponse = WeatherModels.Error.ErrorResponse(message: "Your location not determined")
-            presenter.presentError(errorResponse)
         case .authorizedWhenInUse:
             print("authorizedWhenInUse")
+            locationManager.startUpdateLocation()
             fetchWeatherWithLocation()
         case .authorizedAlways:
             print("authorizedAlways")
